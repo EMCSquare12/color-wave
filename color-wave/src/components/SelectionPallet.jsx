@@ -4,14 +4,29 @@ import selectionList from "./selectionList";
 const SelectionPallet = () => {
   const [type, setType] = useState("");
   const [list, setList] = useState("");
+  const [rotationList, setRotationList] = useState([]);
 
   useEffect(() => {
     setType("linear");
   }, []);
+
+  useEffect(() => {
+    const filteredList = selectionList[
+      type === "linear" ? "linearList" : "radialList"
+    ].filter((item) => item.toLowerCase().includes(list.toLowerCase()));
+
+    if (list.trim() !== undefined) {
+      setRotationList(filteredList);
+    } else {
+      setRotationList(
+        selectionList[type === "linear" ? "linearList" : "radialList"]
+      );
+    }
+  }, [type, list]);
+
   const handleType = (value) => {
     setType(value);
   };
-
   const handleList = (value) => {
     setList(value);
   };
@@ -48,24 +63,22 @@ const SelectionPallet = () => {
           onChange={(e) => handleListChange(e.target.value)}
           value={list}
           type="text"
-          className="z-10 w-full h-10 px-6 text-sm text-gray-500 border rounded outline-none md:h-12 focus:ring-2 hover:shadow font-font-poppins md:text-base"
+          className="z-10 w-full h-10 px-6 text-sm text-gray-500 border rounded outline-none md:px-8 md:h-12 focus:ring-2 hover:shadow font-font-poppins md:text-base"
         />
-        <ul className=" overflow-y-scroll max-h-[300px] absolute top-0 w-full h-auto p-4 mt-10 bg-white border rounded shadow md:mt-12">
-          {selectionList[type === "linear" ? "linearList" : "radialList"].map(
-            (item, index) => (
-              <li
-                key={index}
-                onClick={() => handleList(item)}
-                className={`flex items-center h-10 p-2 text-sm  rounded md:h-12 hover:text-white  md:p-4 font-font-poppins md:text-base ${
-                  list === item
-                    ? "bg-blue-600 text-white"
-                    : "hover:bg-blue-300 bg-white text-gray-500"
-                }`}
-              >
-                {item}
-              </li>
-            )
-          )}
+        <ul className=" gap-2 flex flex-col overflow-y-scroll max-h-[300px] absolute top-0 w-full h-auto p-4 mt-10 bg-white border rounded shadow md:mt-12">
+          {rotationList.map((item, index) => (
+            <li
+              key={index}
+              onClick={() => handleList(item)}
+              className={`flex items-center h-10 p-2 text-sm  rounded md:h-12 hover:text-white  md:p-4 font-font-poppins md:text-base ${
+                list === item
+                  ? "bg-blue-600 text-white"
+                  : "hover:bg-blue-300 bg-white text-gray-500"
+              }`}
+            >
+              {item}
+            </li>
+          ))}
         </ul>
       </div>
     </div>
