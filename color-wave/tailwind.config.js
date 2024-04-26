@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        "font-poppins": ["poppins", "sans-serif"],
-        "font-mont": ["Montserrat", "sans-serif"],
+        "poppins": ["poppins", "sans-serif"],
+        "mont": ["Montserrat", "sans-serif"],
       },
     },
   },
