@@ -1,6 +1,6 @@
 const Display = () => {
   return (
-    <div className="md:w-[50%] h-[30%] md:h-[50%] w-full rounded-md shadow border ">
+    <div className="md:w-full border-gray-300 h-[200px] bg-white  md:h-full w-full rounded-md shadow border ">
       Display
     </div>
   );

@@ -4,7 +4,7 @@ import SelectionPallet from "./components/SelectionPallet";
 function App() {
   return (
     <>
-      <div className="md:p-10 p-4 flex flex-col md:gap-10 gap-4 md:items-center md:justify-center items-center md:flex-row h-screen w-screen">
+      <div className="md:p-10 p-4 md:grid md:grid-cols-2 md:gap-10 gap-4 flex flex-col  h-auto w-full">
         <Display />
         <SelectionPallet />
       </div>

@@ -3,6 +3,8 @@ import selectionList from "./selectionList";
 import { IoColorPalette } from "react-icons/io5";
 import ColorPosition from "./ColorPosition";
 import { LuCircleSlash2 } from "react-icons/lu";
+import { AiOutlinePlus } from "react-icons/ai";
+import { MdDeleteForever } from "react-icons/md";
 
 const SelectionPallet = () => {
   const [type, setType] = useState("");
@@ -10,6 +12,7 @@ const SelectionPallet = () => {
   const [rotationList, setRotationList] = useState([]);
   const [toggleList, setToggleList] = useState(false);
   const dropdownRef = useRef(null);
+  const [newColor, setNewColor] = useState([]);
 
   useEffect(() => {
     setType("linear");
@@ -62,19 +65,25 @@ const SelectionPallet = () => {
     setList(value);
     setToggleList(true);
   };
-
+  const handleNewColor = () => {
+    setNewColor([...newColor, <ColorPosition />]);
+  };
+  const handleDelete = (index) => {
+    const filteredNewColor = [...newColor].filter((_, id) => id !== index);
+    setNewColor(filteredNewColor);
+  };
   return (
     <div
       ref={dropdownRef}
-      className="md:w-[50%] h-auto  w-full md:gap-8 gap-4 rounded-md shadow border md:p-8 p-4 flex flex-col"
+      className="md:w-full h-full border-gray-300  w-full md:gap-8 gap-4 rounded-md shadow border md:p-8 p-4 flex flex-col"
     >
       <div className=" h-auto w-full md:gap-8 gap-4  flex flex-row">
         <div className="flex flex-row w-[50%] h-fit">
           <button
             onClick={() => handleType("linear")}
-            className={`w-[50%] md:h-12 h-10 rounded-l border border-r-transparent hover:shadow font-poppins text-sm md:text-base ${
+            className={`w-[50%] md:h-12 border-gray-300 h-10 rounded-l border border-r-transparent hover:shadow font-poppins text-sm md:text-base ${
               type === "linear"
-                ? "bg-blue-600 text-white border-blue-600"
+                ? "bg-blue-600 text-white border-blue-600 hover:bg-blue-700"
                 : "text-gray-500 hover:bg-gray-100 "
             }`}
           >
@@ -82,9 +91,9 @@ const SelectionPallet = () => {
           </button>
           <button
             onClick={() => handleType("radial")}
-            className={`w-[50%] md:h-12 h-10 rounded-r border  hover:shadow font-poppins text-sm md:text-base ${
+            className={`w-[50%] border-gray-300 md:h-12 h-10 rounded-r border  hover:shadow font-poppins text-sm md:text-base ${
               type === "radial"
-                ? "bg-blue-600 text-white border-blue-600"
+                ? "bg-blue-600 text-white border-blue-600 hover:bg-blue-700"
                 : "text-gray-500 hover:bg-gray-100  "
             }`}
           >
@@ -102,10 +111,10 @@ const SelectionPallet = () => {
             onChange={(e) => handleListChange(e.target.value)}
             value={list}
             type="text"
-            className="z-10 w-full h-10 px-6 text-sm text-gray-500 border rounded outline-none md:px-8 md:h-12 focus:ring-2 hover:shadow font-poppins md:text-base"
+            className="z-10 w-full border-gray-300 h-10 px-6 text-sm text-gray-500 border rounded outline-none md:px-8 md:h-12 focus:ring-2 hover:shadow font-poppins md:text-base"
           />
           {toggleList && (
-            <ul className=" gap-2 flex flex-col overflow-y-scroll max-h-[300px] absolute top-0 w-full h-auto p-4 mt-10 bg-white border rounded shadow md:mt-12">
+            <ul className=" gap-2 flex border-gray-300 z-20 flex-col overflow-y-scroll max-h-[300px] absolute top-0 w-full h-auto p-4 mt-10 bg-white border rounded shadow md:mt-12">
               {rotationList.map((item, index) => (
                 <li
                   key={index}
@@ -125,7 +134,7 @@ const SelectionPallet = () => {
       </div>
       <hr />
       <div className=" h-auto w-full gap-4 flex flex-col">
-        <div className="flex flex-row h-10 w-full bg-gray-200">
+        <div className="flex flex-row border-gray-300 h-10 w-full bg-gray-200">
           <div className="w-[15%] h-full flex items-center justify-center ">
             <IoColorPalette className=" text-sm md:text-base text-gray-400" />
           </div>
@@ -141,14 +150,53 @@ const SelectionPallet = () => {
           </div>
           <div className="w-[15%] h-full"></div>
         </div>
-        <div className="flex flex-row h-auto w-full shadow rounded">
+        <div className="  flex flex-col h-auto w-full shadow rounded">
           <div className="flex flex-row">
             <ColorPosition />
             <div className="w-[15%] h-auto flex items-center justify-center p-2">
               <LuCircleSlash2 className="text-gray-500 text-sm md:text-base cursor-not-allowed" />
             </div>
           </div>
+          <div className="flex flex-row">
+            <ColorPosition />
+            <div className="w-[15%] h-auto flex items-center justify-center p-2">
+              <LuCircleSlash2 className="text-gray-500 text-sm md:text-base cursor-not-allowed" />
+            </div>
+          </div>
+          {newColor.map((item, index) => (
+            <div key={index} className="flex flex-row">
+              {item}
+              <div className="w-[15%] h-auto flex items-center justify-center p-2">
+                <button
+                  onClick={() => {
+                    console.log("Clicked delete button for index:", index);
+                    handleDelete(index);
+                  }}
+                >
+                  <MdDeleteForever className="text-red-500 text-sm md:text-base  hover:text-red-600" />
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
+      </div>
+      <div className="flex justify-end w-full md:-mt-6 -mt-2">
+        <button
+          disabled={newColor.length === 2}
+          onClick={handleNewColor}
+          className="w-[15%] flex items-center justify-center text-blue-500 hover:text-blue-600 font-poppins text-sm md:text-base"
+        >
+          <AiOutlinePlus /> Add
+        </button>
+      </div>
+      <hr />
+      <div className="flex justify-end items-center w-full gap-4 ">
+        <button className="h-10 md:h-12 w-24 rounded bg-white border-blue-600 border text-blue-600 font-poppins text-sm md:text-base focus:ring-2 hover:text-blue-700 hover:border-blue-700 hover:shadow">
+          Random
+        </button>
+        <button className="h-10 md:h-12 w-24 rounded bg-blue-600 text-white font-poppins text-sm md:text-base hover:bg-blue-700 hover:shadow focus:ring-2">
+          Download
+        </button>
       </div>
     </div>
   );
