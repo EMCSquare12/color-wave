@@ -15,6 +15,10 @@ const ColorPosition = ({ propsColor, propsPosition }) => {
   }, []);
 
   useEffect(() => {
+    propsColor(color);
+    propsPosition(position);
+  }, [color, position]);
+  useEffect(() => {
     const handleClickOutside = (event) => {
       if (colorRef.current && !colorRef.current.contains(event.target)) {
         setIsOpenColor(false);
@@ -49,9 +53,7 @@ const ColorPosition = ({ propsColor, propsPosition }) => {
       </div>
       <div className="w-[35%] h-auto flex items-center justify-center   p-2">
         <input
-          onChange={(e) => {
-            setColor(e.target.value), propsColor(e.target.value);
-          }}
+          onChange={(e) => setColor(e.target.value)}
           onClick={() => setIsOpenColor(true)}
           value={color}
           type="text"
@@ -63,9 +65,7 @@ const ColorPosition = ({ propsColor, propsPosition }) => {
           value={position}
           max={100}
           min={0}
-          onChange={(e) => {
-            setPosition(e.target.value), propsPosition(e.target.value);
-          }}
+          onChange={(e) => setPosition(e.target.value)}
           type="number"
           className="hover:shadow border-gray-300 focus:ring-2 text-center w-full md:h-12 h-10 border outline-none rounded text-gray-500 font-poppins text-sm md:text-base px-2 md:px-4"
         />

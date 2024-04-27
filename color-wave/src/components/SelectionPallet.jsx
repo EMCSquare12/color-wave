@@ -6,32 +6,44 @@ import { LuCircleSlash2 } from "react-icons/lu";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdDeleteForever } from "react-icons/md";
 
-const SelectionPallet = () => {
+const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
   const [type, setType] = useState("");
-  const [list, setList] = useState("");
+  const [rotation, setRotaion] = useState("");
   const [rotationList, setRotationList] = useState([]);
   const [toggleList, setToggleList] = useState(false);
   const dropdownRef = useRef(null);
   const [newColor, setNewColor] = useState([]);
+  const [color, setColor] = useState({});
+  const [position, setPosition] = useState({});
+
+  useEffect(() => {
+    const bgGradient = `${type}-gradient(${rotation}, ${color.firstColor} ${position.firstPosition}%, ${color.secondColor} ${position.secondPosition}%)`;
+    propsGradient(bgGradient);
+    propsFirstColor(color.firstColor);
+
+    console.log(color);
+    console.log(position);
+    console.log(bgGradient);
+  }, [color, position, type, rotation]);
 
   useEffect(() => {
     setType("linear");
-    setList(selectionList.linearList[8]);
+    setRotaion(selectionList.linearList[8]);
   }, []);
 
   useEffect(() => {
     const filteredList = selectionList[
       type === "linear" ? "linearList" : "radialList"
-    ].filter((item) => item.toLowerCase().includes(list.toLowerCase()));
+    ].filter((item) => item.toLowerCase().includes(rotation.toLowerCase()));
 
-    if (list.trim() !== undefined) {
+    if (rotation.trim() !== undefined) {
       setRotationList(filteredList);
     } else {
       setRotationList(
         selectionList[type === "linear" ? "linearList" : "radialList"]
       );
     }
-  }, [type, list]);
+  }, [type, rotation]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -53,7 +65,7 @@ const SelectionPallet = () => {
       selectionList[value === "linear" ? "linearList" : "radialList"];
     const typeLength = typeList.length;
     const randomType = Math.floor(Math.random() * typeLength);
-    setList(typeList[randomType]);
+    setRotaion(typeList[randomType]);
     setToggleList(false);
   };
 
@@ -71,6 +83,11 @@ const SelectionPallet = () => {
   const handleDelete = (index) => {
     const filteredNewColor = [...newColor].filter((_, id) => id !== index);
     setNewColor(filteredNewColor);
+  };
+
+  const handleColorPosition = (key, value) => {
+    setColor((preValue) => ({ ...preValue, [key]: value }));
+    setPosition((preValue) => ({ ...preValue, [key]: value }));
   };
   return (
     <div
@@ -109,7 +126,7 @@ const SelectionPallet = () => {
                 setToggleList(!toggleList);
             }}
             onChange={(e) => handleListChange(e.target.value)}
-            value={list}
+            value={rotation}
             type="text"
             className="z-10 w-full border-gray-300 h-10 px-6 text-sm text-gray-500 border rounded outline-none md:px-8 md:h-12 focus:ring-2 hover:shadow font-poppins md:text-base"
           />
@@ -152,13 +169,23 @@ const SelectionPallet = () => {
         </div>
         <div className="  flex flex-col h-auto w-full shadow rounded">
           <div className="flex flex-row">
-            <ColorPosition />
+            <ColorPosition
+              propsColor={(value) => handleColorPosition("firstColor", value)}
+              propsPosition={(value) =>
+                handleColorPosition("firstPosition", value)
+              }
+            />
             <div className="w-[15%] h-auto flex items-center justify-center p-2">
               <LuCircleSlash2 className="text-gray-500 text-sm md:text-base cursor-not-allowed" />
             </div>
           </div>
           <div className="flex flex-row">
-            <ColorPosition />
+            <ColorPosition
+              propsColor={(value) => handleColorPosition("secondColor", value)}
+              propsPosition={(value) =>
+                handleColorPosition("secondPosition", value)
+              }
+            />
             <div className="w-[15%] h-auto flex items-center justify-center p-2">
               <LuCircleSlash2 className="text-gray-500 text-sm md:text-base cursor-not-allowed" />
             </div>
