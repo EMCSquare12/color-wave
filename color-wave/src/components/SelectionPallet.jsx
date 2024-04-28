@@ -21,9 +21,7 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
     const hexColor = "#" + randomInt.toString(16).padStart(6, "0");
     return hexColor;
   };
-  const randomPosition = () => {
-    return Math.floor(Math.random() * 100) + 1;
-  };
+
   useEffect(() => {
     setColor({ firstColor: randomColor(), secondColor: randomColor() });
     setPosition({ firstPosition: 0, secondPosition: 100 });
@@ -95,24 +93,25 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
   };
 
   const handleNewColor = () => {
-    setColor((prevState) => ({
-      ...prevState,
-      [`newColor${newColor.length}`]: randomColor(),
-    }));
+    const addedNewColor = randomColor();
+    const addedNewPosition = newColor.length === 0 ? 30 : 70;
 
-    setPosition((prevState) => ({
-      ...prevState,
-      [`newPosition${newColor.length}`]: newColor.length === 0 ? 30 : 70,
-    }));
-
-    setNewColor((prevState) => [
-      ...prevState,
+    setNewColor([
+      ...newColor,
       <ColorPosition
-        key={prevState.length}
-        propsColor={color[`newColor${prevState.length}`]}
-        propsPosition={position[`newPosition${prevState.length}`]}
+        propsColor={addedNewColor}
+        propsPosition={addedNewPosition}
       />,
     ]);
+    setColor((prevState) => ({
+      ...prevState,
+      [`newColor${newColor.length}`]: addedNewColor,
+    }));
+    setPosition((prevState) => ({
+      ...prevState,
+      [`newPosition${newColor.length}`]: addedNewPosition,
+    }));
+    console.log(color);
   };
 
   const handleDelete = (index) => {
