@@ -16,14 +16,32 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
   const [color, setColor] = useState({});
   const [position, setPosition] = useState({});
 
+  const randomColor = () => {
+    const randomInt = Math.floor(Math.random() * 16777216);
+    const hexColor = "#" + randomInt.toString(16).padStart(6, "0");
+    return hexColor;
+  };
+  const randomPosition = () => {
+    return Math.floor(Math.random() * 100) + 1;
+  };
   useEffect(() => {
-    const bgGradient = `${type}-gradient(${rotation}, ${color.firstColor} ${position.firstPosition}%, ${color.secondColor} ${position.secondPosition}%)`;
+    setColor({ firstColor: randomColor(), secondColor: randomColor() });
+    setPosition({ firstPosition: 0, secondPosition: 100 });
+  }, []);
+  useEffect(() => {
+    const colorPosition0 = `${
+      color.newColor0 !== undefined ? color.newColor0 : ""
+    } ${
+      position.newPosition0 !== undefined ? position.newPosition0 + "%," : ""
+    }`;
+    const colorPosition1 = `${
+      color.newColor1 !== undefined ? color.newColor1 : ""
+    } ${
+      position.newPosition1 !== undefined ? position.newPosition1 + "%," : ""
+    }`;
+    const bgGradient = `${type}-gradient(${rotation}, ${color.firstColor} ${position.firstPosition}%, ${colorPosition0} ${colorPosition1}  ${color.secondColor} ${position.secondPosition}%)`;
     propsGradient(bgGradient);
     propsFirstColor(color.firstColor);
-
-    console.log(color);
-    console.log(position);
-    console.log(bgGradient);
   }, [color, position, type, rotation]);
 
   useEffect(() => {
@@ -36,13 +54,11 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
       type === "linear" ? "linearList" : "radialList"
     ].filter((item) => item.toLowerCase().includes(rotation.toLowerCase()));
 
-    if (rotation.trim() !== undefined) {
-      setRotationList(filteredList);
-    } else {
-      setRotationList(
-        selectionList[type === "linear" ? "linearList" : "radialList"]
-      );
-    }
+    setRotationList(
+      rotation.trim() !== ""
+        ? filteredList
+        : selectionList[type === "linear" ? "linearList" : "radialList"]
+    );
   }, [type, rotation]);
 
   useEffect(() => {
@@ -70,24 +86,60 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
   };
 
   const handleList = (value) => {
-    setList(value);
+    setRotaion(value);
     setToggleList(false);
   };
   const handleListChange = (value) => {
-    setList(value);
+    setRotaion(value);
     setToggleList(true);
   };
+
   const handleNewColor = () => {
-    setNewColor([...newColor, <ColorPosition />]);
+    setColor((prevState) => ({
+      ...prevState,
+      [`newColor${newColor.length}`]: randomColor(),
+    }));
+
+    setPosition((prevState) => ({
+      ...prevState,
+      [`newPosition${newColor.length}`]: newColor.length === 0 ? 30 : 70,
+    }));
+
+    setNewColor((prevState) => [
+      ...prevState,
+      <ColorPosition
+        key={prevState.length}
+        propsColor={color[`newColor${prevState.length}`]}
+        propsPosition={position[`newPosition${prevState.length}`]}
+      />,
+    ]);
   };
+
   const handleDelete = (index) => {
-    const filteredNewColor = [...newColor].filter((_, id) => id !== index);
+    const filteredNewColor = newColor.filter((_, id) => id !== index);
+
+    setColor((prevColor) => {
+      const updatedColor = { ...prevColor };
+      delete updatedColor[`newColor${index}`];
+      return updatedColor;
+    });
+
+    setPosition((prevPosition) => {
+      const updatedPosition = { ...prevPosition };
+      delete updatedPosition[`newPosition${index}`];
+      return updatedPosition;
+    });
+
     setNewColor(filteredNewColor);
   };
 
-  const handleColorPosition = (key, value) => {
-    setColor((preValue) => ({ ...preValue, [key]: value }));
-    setPosition((preValue) => ({ ...preValue, [key]: value }));
+  const handleRandom = () => {
+    const updatedColor = {};
+    for (const key in color) {
+      updatedColor[key] = randomColor();
+    }
+    console.log(updatedColor);
+    setColor(updatedColor);
   };
   return (
     <div
@@ -137,7 +189,7 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
                   key={index}
                   onClick={() => handleList(item)}
                   className={`flex items-center h-10 p-2 text-sm  rounded md:h-12 hover:text-white  md:p-4 font-font-poppins md:text-base ${
-                    list === item
+                    rotation === item
                       ? "bg-blue-600 text-white"
                       : "hover:bg-blue-300 bg-white text-gray-500"
                   }`}
@@ -155,12 +207,12 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
           <div className="w-[15%] h-full flex items-center justify-center ">
             <IoColorPalette className=" text-sm md:text-base text-gray-400" />
           </div>
-          <div className="w-[35%] h-full flex items-center justify-center ">
+          <div className="w-[45%] h-full flex items-center justify-center ">
             <h1 className="font-mont font-bold text-sm md:text-base text-gray-400">
               Color
             </h1>
           </div>
-          <div className="w-[35%] h-full flex items-center justify-center ">
+          <div className="w-[25%] h-full flex items-center justify-center ">
             <h1 className="font-mont font-bold text-sm md:text-base text-gray-400">
               Position
             </h1>
@@ -170,10 +222,8 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
         <div className="  flex flex-col h-auto w-full shadow rounded">
           <div className="flex flex-row">
             <ColorPosition
-              propsColor={(value) => handleColorPosition("firstColor", value)}
-              propsPosition={(value) =>
-                handleColorPosition("firstPosition", value)
-              }
+              propsColor={color.firstColor}
+              propsPosition={position.firstPosition}
             />
             <div className="w-[15%] h-auto flex items-center justify-center p-2">
               <LuCircleSlash2 className="text-gray-500 text-sm md:text-base cursor-not-allowed" />
@@ -181,10 +231,8 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
           </div>
           <div className="flex flex-row">
             <ColorPosition
-              propsColor={(value) => handleColorPosition("secondColor", value)}
-              propsPosition={(value) =>
-                handleColorPosition("secondPosition", value)
-              }
+              propsColor={color.secondColor}
+              propsPosition={position.secondPosition}
             />
             <div className="w-[15%] h-auto flex items-center justify-center p-2">
               <LuCircleSlash2 className="text-gray-500 text-sm md:text-base cursor-not-allowed" />
@@ -218,7 +266,10 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
       </div>
       <hr />
       <div className="flex justify-end items-center w-full gap-4 ">
-        <button className="h-10 md:h-12 w-24 rounded bg-white border-blue-600 border text-blue-600 font-poppins text-sm md:text-base focus:ring-2 hover:text-blue-700 hover:border-blue-700 hover:shadow">
+        <button
+          onClick={handleRandom}
+          className="h-10 md:h-12 w-24 rounded bg-white border-blue-600 border text-blue-600 font-poppins text-sm md:text-base focus:ring-2 hover:text-blue-700 hover:border-blue-700 hover:shadow"
+        >
           Random
         </button>
         <button className="h-10 md:h-12 w-24 rounded bg-blue-600 text-white font-poppins text-sm md:text-base hover:bg-blue-700 hover:shadow focus:ring-2">
