@@ -56,7 +56,7 @@ const ColorPosition = ({
           value={position}
           max={100}
           min={0}
-          onChange={(e) => callbackPosition(e.target.value)}
+          onChange={(e) => callbackPosition( e.target.value )}
           type="number"
           className="hover:shadow border-gray-300 focus:ring-2 text-center w-full md:h-12 h-10 border outline-none rounded text-gray-500 font-poppins text-sm md:text-base px-2 md:px-4"
         />

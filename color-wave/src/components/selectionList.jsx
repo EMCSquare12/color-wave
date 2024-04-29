@@ -38,12 +38,13 @@ const selectionList = {
     "360deg",
   ],
   radialList: [
-    "closest-side",
+    "circle",
     "closest-corner",
-    "farthest-side",
-    "farthest-corner",
-    "ellipse at top",
+    "closest-side",
     "ellipse at bottom",
+    "ellipse at top",
+    "farthest-corner",
+    "farthest-side",
   ],
 };
 

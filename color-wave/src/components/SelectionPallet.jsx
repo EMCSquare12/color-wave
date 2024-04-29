@@ -98,7 +98,14 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
 
     setNewColor([
       ...newColor,
-      <ColorPosition color={addedNewColor} position={addedNewPosition} />,
+      <ColorPosition
+        color={addedNewColor}
+        position={addedNewPosition}
+        callbackColor={(value) => setColor({ [`newColor${index}`]: value })}
+        callbackPosition={(value) =>
+          setPosition({ [`newPosition${index}`]: value })
+        }
+      />,
     ]);
     setColor((prevState) => ({
       ...prevState,
@@ -220,6 +227,8 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
             <ColorPosition
               color={color.firstColor}
               position={position.firstPosition}
+              callbackColor={(value) => setColor({ firstColor: value })}
+              callbackPosition={(value) => setPosition({ firstColor: value })}
             />
             <div className="w-[15%] h-auto flex items-center justify-center p-2">
               <LuCircleSlash2 className="text-gray-500 text-sm md:text-base cursor-not-allowed" />
@@ -229,6 +238,8 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
             <ColorPosition
               color={color.secondColor}
               position={position.secondPosition}
+              callbackColor={(value) => setColor({ secondColor: value })}
+              callbackPosition={(value) => setPosition({ secondColor: value })}
             />
             <div className="w-[15%] h-auto flex items-center justify-center p-2">
               <LuCircleSlash2 className="text-gray-500 text-sm md:text-base cursor-not-allowed" />
@@ -239,6 +250,12 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
               <ColorPosition
                 color={color[`newColor${index}`]}
                 position={position[`newPosition${index}`]}
+                callbackColor={(value) =>
+                  setColor({ [`newColor${index}`]: value })
+                }
+                callbackPosition={(value) =>
+                  setPosition({ [`newPosition${index}`]: value })
+                }
               />
               ,
               <div className="w-[15%] h-auto flex items-center justify-center p-2">
