@@ -98,10 +98,7 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
 
     setNewColor([
       ...newColor,
-      <ColorPosition
-        propsColor={addedNewColor}
-        propsPosition={addedNewPosition}
-      />,
+      <ColorPosition color={addedNewColor} position={addedNewPosition} />,
     ]);
     setColor((prevState) => ({
       ...prevState,
@@ -221,8 +218,8 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
         <div className="  flex flex-col h-auto w-full shadow rounded">
           <div className="flex flex-row">
             <ColorPosition
-              propsColor={color.firstColor}
-              propsPosition={position.firstPosition}
+              color={color.firstColor}
+              position={position.firstPosition}
             />
             <div className="w-[15%] h-auto flex items-center justify-center p-2">
               <LuCircleSlash2 className="text-gray-500 text-sm md:text-base cursor-not-allowed" />
@@ -230,8 +227,8 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
           </div>
           <div className="flex flex-row">
             <ColorPosition
-              propsColor={color.secondColor}
-              propsPosition={position.secondPosition}
+              color={color.secondColor}
+              position={position.secondPosition}
             />
             <div className="w-[15%] h-auto flex items-center justify-center p-2">
               <LuCircleSlash2 className="text-gray-500 text-sm md:text-base cursor-not-allowed" />
@@ -239,7 +236,11 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
           </div>
           {newColor.map((item, index) => (
             <div key={index} className="flex flex-row">
-              {item}
+              <ColorPosition
+                color={color[`newColor${index}`]}
+                position={position[`newPosition${index}`]}
+              />
+              ,
               <div className="w-[15%] h-auto flex items-center justify-center p-2">
                 <button
                   onClick={() => {
