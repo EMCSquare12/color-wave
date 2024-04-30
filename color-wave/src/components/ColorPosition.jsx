@@ -5,6 +5,8 @@ const ColorPosition = ({
   position,
   callbackColor,
   callbackPosition,
+  colorKey,
+  positionKey,
 }) => {
   const [isOpenColor, setIsOpenColor] = useState(false);
   const colorRef = useRef(null);
@@ -22,6 +24,13 @@ const ColorPosition = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const handleCallbackColor = (key, value) => {
+    callbackColor(value);
+  };
+  const handleCallbackPosition = (key, value) => {
+    callbackPosition(value);
+  };
   return (
     <>
       <div
@@ -31,24 +40,24 @@ const ColorPosition = ({
         <button
           style={{ backgroundColor: color }}
           onClick={() => setIsOpenColor(true)}
-          className=" border-gray-300  hover:shadow md:h-12 h-10 w-full rounded focus:ring-2 border"
+          className="w-full h-10 border border-gray-300 rounded hover:shadow md:h-12 focus:ring-2"
         ></button>
         {isOpenColor && (
-          <div className="absolute top-0 mt-16 left-0 z-10">
+          <div className="absolute top-0 left-0 z-10 mt-16">
             <ColorPicker
               color={color}
-              onChange={(value) => callbackColor(value.hex)}
+              onChange={(e) => handleCallbackColor(colorKey, e.hex)}
             />
           </div>
         )}
       </div>
       <div className="w-[45%] h-auto flex items-center justify-center   p-2">
         <input
-          onChange={(e) => callbackColor(e.target.value)}
+          onChange={(e) => handleCallbackColor(colorKey, e.target.value)}
           onClick={() => setIsOpenColor(true)}
           value={color}
           type="text"
-          className=" border-gray-300 hover:shadow focus:ring-2 text-center w-full md:h-12 h-10 border outline-none rounded text-gray-500 font-poppins text-sm md:text-base px-2 md:px-4"
+          className="w-full h-10 px-2 text-sm text-center text-gray-500 border border-gray-300 rounded outline-none hover:shadow focus:ring-2 md:h-12 font-poppins md:text-base md:px-4"
         />
       </div>
       <div className="w-[25%] h-auto flex items-center justify-center   p-2">
@@ -56,9 +65,9 @@ const ColorPosition = ({
           value={position}
           max={100}
           min={0}
-          onChange={(e) => callbackPosition( e.target.value )}
+          onChange={(e) => handleCallbackPosition(positionKey, e.target.value)}
           type="number"
-          className="hover:shadow border-gray-300 focus:ring-2 text-center w-full md:h-12 h-10 border outline-none rounded text-gray-500 font-poppins text-sm md:text-base px-2 md:px-4"
+          className="w-full h-10 px-2 text-sm text-center text-gray-500 border border-gray-300 rounded outline-none hover:shadow focus:ring-2 md:h-12 font-poppins md:text-base md:px-4"
         />
       </div>
     </>
