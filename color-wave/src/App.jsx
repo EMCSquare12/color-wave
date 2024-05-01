@@ -9,7 +9,9 @@ function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   return (
     <>
-      <div className="relative md:p-10 p-4 md:grid md:grid-cols-2 md:gap-10 gap-4 flex flex-col  h-auto w-full">
+      <div
+        className={`relative flex flex-col w-full h-auto gap-4 p-4 md:p-10 md:grid md:grid-cols-2 md:gap-10`}
+      >
         {modalIsOpen && (
           <GradientModal
             gradientModal={bgGradient}

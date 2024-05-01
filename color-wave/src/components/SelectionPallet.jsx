@@ -118,20 +118,28 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
 
   const handleDelete = (index) => {
     const filteredNewColor = newColor.filter((_, id) => id !== index);
-
-    const entries = Object.entries(color);
-    const filteredEntries = entries.filter(([key], id) => {
-      // Skip the first two items ('default' and any other defaults)
+    const colorObj = Object.entries(color);
+    const positionObj = Object.entries(position);
+    const filteredColorEntries = colorObj.filter(([key], id) => {
       if (id < 2) {
-        return true; // Keep the first two items
+        return true;
       } else {
-        return id !== index + 2; // Skip the third and fourth items
+        return id !== index + 2;
+      }
+    });
+    const filteredPositionEntries = positionObj.filter(([key], id) => {
+      if (id < 2) {
+        return true;
+      } else {
+        return id !== index + 2;
       }
     });
 
-    const newObj = Object.fromEntries(filteredEntries);
+    const newColorObj = Object.fromEntries(filteredColorEntries);
+    const newPositionObj = Object.fromEntries(filteredPositionEntries);
 
-    setColor(newObj);
+    setColor(newColorObj);
+    setPosition(newPositionObj);
 
     setNewColor(filteredNewColor);
   };
@@ -314,11 +322,11 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
       <div className="flex items-center justify-end w-full gap-4 ">
         <button
           onClick={handleRandom}
-          className="w-24 h-10 text-sm text-blue-600 bg-white border border-blue-600 rounded md:h-12 font-poppins md:text-base focus:ring-2 hover:text-blue-700 hover:border-blue-700 hover:shadow"
+          className="w-auto h-10 px-4 text-sm text-blue-600 bg-white border border-blue-600 rounded md:h-12 font-poppins md:text-base focus:ring-2 hover:text-blue-700 hover:border-blue-700 hover:shadow"
         >
           Random
         </button>
-        <button className="w-24 h-10 text-sm text-white bg-blue-600 rounded md:h-12 font-poppins md:text-base hover:bg-blue-700 hover:shadow focus:ring-2">
+        <button className="w-auto h-10 px-4 text-sm text-white bg-blue-600 rounded md:h-12 font-poppins md:text-base hover:bg-blue-700 hover:shadow focus:ring-2">
           Download
         </button>
       </div>
