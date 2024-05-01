@@ -3,20 +3,20 @@ import { FaClipboard } from "react-icons/fa";
 import { Fragment } from "react";
 
 const Display = ({ gradient, bgColor, isOpen }) => {
-  const codeFormatter = (gradientString) => {
-    if (typeof gradientString === "string") {
-      const colorStops = gradientString.split(",");
-      const formattedGradient = colorStops.map((stop, index) => {
-        return index < colorStops.length - 1 ? `${stop},\n\t` : stop;
-      });
-      return formattedGradient.join("");
-    } else {
-      return gradientString;
-    }
-  };
+  // const codeFormatter = (gradientString) => {
+  //   if (typeof gradientString === "string") {
+  //     const colorStops = gradientString.split(",");
+  //     const formattedGradient = colorStops.map((stop, index) => {
+  //       return index < colorStops.length - 1 ? `${stop},\n\t` : stop;
+  //     });
+  //     return formattedGradient.join("");
+  //   } else {
+  //     return gradientString;
+  //   }
+  // };
 
   return (
-    <div className=" md:w-full border-gray-300 h-[300px]  md:h-full w-full rounded-md shadow border overflow-hidden">
+    <div className="relative md:w-full border-gray-300 h-[250px]  md:h-full w-full rounded-md shadow border overflow-hidden">
       <div
         style={{ background: `${gradient}`, backgroundColor: `${bgColor}` }}
         className="md:h-[60%] h-[calc(100%-2.5rem)]"
@@ -29,21 +29,21 @@ const Display = ({ gradient, bgColor, isOpen }) => {
         </button>
       </div>
       <div className="w-full md:h-[3rem] h-[2.5rem] bg-[#7f6eb8] flex justify-end md:justify-between items-center ">
-        <button className="md:flex items-center justify-center h-full px-4 text-sm font-bold text-gray-300 bg-[#5C4B99] outline-none w-fit font-mont md:text-base hidden">
+        <button className="md:flex items-center justify-center h-full px-4 text-sm font-bold text-gray-300 bg-[#5C4B99] outline-none w-fit font-mont md:text-base ">
           CSS
         </button>
-        <button className=" gap-2 flex items-center justify-center h-full px-4 text-xs font-bold text-gray-300 bg-[#301e51] outline-none w-fit font-mont md:text-xs hover:bg-[#23163c]">
+        <button className=" gap-2 flex items-center justify-center h-full px-4 text-xs font-bold text-gray-300 bg-[#301e51] outline-none md:w-fit w-full font-mont md:text-xs hover:bg-[#23163c]">
           <FaClipboard />
           Copy to Clipboard
         </button>
       </div>
-      <div className="md:h-[40%] w-full h-0 bg-[#3D246C] p-4 flex flex-col gap-4">
+      <div className="md:h-[40%] w-full h-0 bg-[#3D246C] p-6 md:flex flex-col gap-3">
         <div className="flex flex-row gap-3 ">
           <h1 className="flex items-start text-sm font-bold text-gray-300 font-poppins">
             Background:
           </h1>
           <p className="flex items-center gap-1 text-sm font-medium text-gray-200 font-mont">
-            {codeFormatter(bgColor)}
+            {bgColor}
           </p>
         </div>
         <div className="flex flex-row gap-3 ">

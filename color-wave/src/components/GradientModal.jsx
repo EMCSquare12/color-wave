@@ -1,10 +1,18 @@
 import { CgMinimizeAlt } from "react-icons/cg";
+import { useEffect } from "react";
 
 const GradientModal = ({ gradientModal, isOpen }) => {
+  useEffect(() => {
+    document.body.classList.add("unscrollable");
+
+    return () => {
+      document.body.classList.remove("unscrollable");
+    };
+  }, []);
   return (
     <div
       style={{ background: gradientModal }}
-      className="absolute z-30 w-full h-full"
+      className="absolute z-30 w-screen h-screen"
     >
       <button
         onClick={() => isOpen(false)}
