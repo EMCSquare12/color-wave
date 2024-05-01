@@ -157,14 +157,14 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
   const handleCallbackColor = (key, value) => {
     setColor((prev) => ({
       ...prev,
-      [key]: value,
+      [key]: value !== "" ? value : "#000000",
     }));
     console.log(key, value);
   };
   const handleCallbackPosition = (key, value) => {
     setPosition((prev) => ({
       ...prev,
-      [key]: value,
+      [key]: value !== "" ? value : 0,
     }));
     console.log(key, value);
   };
