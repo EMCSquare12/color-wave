@@ -100,47 +100,38 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
   const handleNewColor = () => {
     const addedNewColor = randomColor();
     const addedNewPosition = newColor.length === 0 ? 30 : 70;
+    const newIndex = newColor.length;
 
-    setNewColor([
-      ...newColor,
-      <ColorPosition
-        color={addedNewColor}
-        position={addedNewPosition}
-        callbackColor={(value) =>
-          handleCallbackColor(`newColor${newColor.length}`, value)
-        }
-        callbackPosition={(value) =>
-          handleCallbackPosition({ [`newPosition${newColor.length}`]: value })
-        }
-        colorKey={`newColor${newColor.length}`}
-        positionKey={`newPosition${newColor.length}`}
-      />,
-    ]);
-    setColor((prevState) => ({
-      ...prevState,
-      [`newColor${newColor.length}`]: addedNewColor,
+    setNewColor((prevNewColor) => [...prevNewColor, null]);
+
+    setColor((prevColor) => ({
+      ...prevColor,
+      [`newColor${newIndex}`]: addedNewColor,
     }));
-    setPosition((prevState) => ({
-      ...prevState,
-      [`newPosition${newColor.length}`]: addedNewPosition,
+
+    setPosition((prevPosition) => ({
+      ...prevPosition,
+      [`newPosition${newIndex}`]: addedNewPosition,
     }));
-    console.log(color);
+    console.log(newColor);
   };
 
   const handleDelete = (index) => {
     const filteredNewColor = newColor.filter((_, id) => id !== index);
 
-    setColor((prevColor) => {
-      const updatedColor = { ...prevColor };
-      delete updatedColor[`newColor${index}`];
-      return updatedColor;
+    const entries = Object.entries(color);
+    const filteredEntries = entries.filter(([key], id) => {
+      // Skip the first two items ('default' and any other defaults)
+      if (id < 2) {
+        return true; // Keep the first two items
+      } else {
+        return id !== index + 2; // Skip the third and fourth items
+      }
     });
 
-    setPosition((prevPosition) => {
-      const updatedPosition = { ...prevPosition };
-      delete updatedPosition[`newPosition${index}`];
-      return updatedPosition;
-    });
+    const newObj = Object.fromEntries(filteredEntries);
+
+    setColor(newObj);
 
     setNewColor(filteredNewColor);
   };
@@ -207,10 +198,10 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
             onChange={(e) => handleListChange(e.target.value)}
             value={rotation}
             type="text"
-            className="z-10 w-full h-10 px-6 text-sm text-gray-500 border border-gray-300 rounded outline-none md:px-8 md:h-12 focus:ring-2 hover:shadow font-poppins md:text-base"
+            className="z-20 w-full h-10 px-6 text-sm text-gray-500 border border-gray-300 rounded outline-none md:px-8 md:h-12 focus:ring-2 hover:shadow font-poppins md:text-base"
           />
           {toggleList && (
-            <ul className=" gap-2 flex border-gray-300 z-20 flex-col overflow-y-scroll max-h-[300px] absolute top-0 w-full h-auto p-4 mt-10 bg-white border rounded shadow md:mt-12">
+            <ul className=" gap-2 flex border-gray-300 z-10 flex-col overflow-y-scroll max-h-[300px] absolute top-0 w-full h-auto p-4 mt-10 bg-white border rounded shadow md:mt-12">
               {rotationList.map((item, index) => (
                 <li
                   key={index}
@@ -290,12 +281,12 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
                   handleCallbackColor(`newColor${index}`, value)
                 }
                 callbackPosition={(value) =>
-                  handleCallbackPosition({ [`newPosition${index}`]: value })
+                  handleCallbackPosition(`newPosition${index}`, value)
                 }
                 colorKey={`newColor${index}`}
                 positionKey={`newPosition${index}`}
               />
-              ,
+
               <div className="w-[15%] h-auto flex items-center justify-center p-2">
                 <button
                   onClick={() => {

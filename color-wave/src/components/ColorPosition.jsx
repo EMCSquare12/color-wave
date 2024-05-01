@@ -10,6 +10,7 @@ const ColorPosition = ({
 }) => {
   const [isOpenColor, setIsOpenColor] = useState(false);
   const colorRef = useRef(null);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -43,7 +44,7 @@ const ColorPosition = ({
           className="w-full h-10 border border-gray-300 rounded hover:shadow md:h-12 focus:ring-2"
         ></button>
         {isOpenColor && (
-          <div className="absolute top-0 left-0 z-10 mt-16">
+          <div className="absolute top-0 left-0 z-10 md:mt-16 mt-14">
             <ColorPicker
               color={color}
               onChange={(e) => handleCallbackColor(colorKey, e.hex)}
