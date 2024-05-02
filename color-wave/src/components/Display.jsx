@@ -1,8 +1,24 @@
 import { CgMaximizeAlt } from "react-icons/cg";
 import { FaClipboard } from "react-icons/fa";
-import { Fragment } from "react";
+import copy from "clipboard-copy";
+import { useRef, useState } from "react";
 
 const Display = ({ gradient, bgColor, isOpen }) => {
+  const timeOutRef = useRef(null);
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopyToClipBoard = () => {
+    copy(
+      `background: ${bgColor};\nbackground: ${gradient
+        .replace(/\s+/g, " ")
+        .trim()};`
+    );
+    setIsCopied(true);
+
+    timeOutRef.current = setTimeout(() => {
+      setIsCopied(false);
+    }, 1500);
+  };
   // const codeFormatter = (gradientString) => {
   //   if (typeof gradientString === "string") {
   //     const colorStops = gradientString.split(",");
@@ -32,28 +48,38 @@ const Display = ({ gradient, bgColor, isOpen }) => {
         <button className="md:flex items-center justify-center h-full px-4 text-sm font-bold text-gray-300 bg-[#5C4B99] outline-none w-fit font-mont md:text-base ">
           CSS
         </button>
-        <button className=" gap-2 flex items-center justify-center h-full px-4 text-xs font-bold text-gray-300 bg-[#301e51] outline-none md:w-fit w-full font-mont md:text-xs hover:bg-[#23163c]">
+        <button className=" gap-2 flex md:hidden items-center justify-center h-full px-4 text-xs font-bold text-gray-300 bg-[#301e51] outline-none md:w-fit w-full font-mont md:text-xs hover:bg-[#23163c]">
           <FaClipboard />
           Copy to Clipboard
         </button>
       </div>
-      <div className="md:h-[40%] w-full h-0 bg-[#3D246C] p-6 md:flex flex-col gap-3">
-        <div className="flex flex-row gap-3 ">
-          <h1 className="flex items-start text-sm font-bold text-gray-300 font-poppins">
-            Background:
-          </h1>
-          <p className="flex items-center gap-1 text-sm font-medium text-gray-200 font-mont">
-            {bgColor}
-          </p>
+      <div className="md:h-[calc(40%-3rem)] w-full h-0 bg-[#3D246C]  md:flex flex-col ">
+        <div className="w-full md:h-[calc(100%-3rem)] h-0 bg-[#3D246C] p-6 md:flex flex-col gap-3">
+          <div className="flex flex-row gap-3 ">
+            <h1 className="flex items-start text-sm font-bold text-gray-300 font-poppins">
+              Background:
+            </h1>
+            <p className="flex items-center gap-1 text-sm font-medium text-gray-200 font-mont">
+              {bgColor}
+            </p>
+          </div>
+          <div className="flex flex-row gap-3 ">
+            <h1 className="flex items-start text-sm font-bold text-gray-300 font-poppins">
+              Background:
+            </h1>
+            <p className="flex items-center w-full gap-1 text-sm font-medium text-gray-200 break-words whitespace-pre-line font-mont">
+              {gradient}
+            </p>
+          </div>
         </div>
-        <div className="flex flex-row gap-3 ">
-          <h1 className="flex items-start text-sm font-bold text-gray-300 font-poppins">
-            Background:
-          </h1>
-          <p className="flex items-center w-full gap-1 text-sm font-medium text-gray-200 break-words whitespace-pre-line font-mont">
-            {gradient}
-          </p>
-        </div>
+        <button
+          style={{ background: isCopied ? gradient : "" }}
+          onClick={handleCopyToClipBoard}
+          className=" gap-2 flex items-center justify-center md:h-[3rem] h-[2.5rem] w-full px-4 text-sm font-bold text-gray-300 bg-[#301e51] outline-none font-mont md:text-sm hover:bg-[#23163c]"
+        >
+          <FaClipboard />
+          {isCopied ? "Copied!" : "Copy to Clipboard"}
+        </button>
       </div>
     </div>
   );
