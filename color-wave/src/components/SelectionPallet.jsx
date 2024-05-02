@@ -5,6 +5,7 @@ import ColorPosition from "./ColorPosition";
 import { LuCircleSlash2 } from "react-icons/lu";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdDeleteForever } from "react-icons/md";
+import html2canvas from "html2canvas";
 
 const randomColor = () => {
   const randomInt = Math.floor(Math.random() * 16777216);
@@ -166,6 +167,46 @@ const SelectionPallet = ({ propsGradient, propsFirstColor }) => {
       [key]: value !== "" ? value : 0,
     }));
     console.log(key, value);
+  };
+
+  const exportAsImage = async (element, imageFileName) => {
+    const elementStyle = {
+      width: "1440px",
+      height: "1024px",
+      zIndex: "10",
+      border: "none",
+      borderRadius: "0",
+    };
+    try {
+      for (const styleProperty in elementStyle) {
+        element.style[styleProperty] = elementStyle[styleProperty];
+      }
+      const canvas = await html2canvas(element);
+      const image = canvas.toDataURL("image/png", 1.0);
+      for (const styleProperty in elementStyle) {
+        element.style[styleProperty] = "";
+      }
+
+      downloadImage(image, imageFileName);
+    } catch (error) {
+      alert("Error exporting as image:", error);
+      console.error("Error exporting as image:", error);
+    }
+  };
+
+  const downloadImage = (dataUrl, fileName) => {
+    const fakeLink = document.createElement("a");
+
+    fakeLink.style.display = "none";
+    fakeLink.download = fileName;
+
+    fakeLink.href = dataUrl;
+
+    document.body.appendChild(fakeLink);
+    fakeLink.click();
+    document.body.removeChild(fakeLink);
+
+    fakeLink.remove();
   };
   return (
     <div

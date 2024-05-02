@@ -48,9 +48,15 @@ const Display = ({ gradient, bgColor, isOpen }) => {
         <button className="md:flex items-center justify-center h-full px-4 text-sm font-bold text-gray-300 bg-[#5C4B99] outline-none w-fit font-mont md:text-base ">
           CSS
         </button>
-        <button className=" gap-2 flex md:hidden items-center justify-center h-full px-4 text-xs font-bold text-gray-300 bg-[#301e51] outline-none md:w-fit w-full font-mont md:text-xs hover:bg-[#23163c]">
+        <button
+          style={{
+            background: isCopied ? gradient : "",
+          }}
+          onClick={handleCopyToClipBoard}
+          className=" gap-2 flex md:hidden items-center justify-center h-full px-4 text-xs font-bold text-gray-300  bg-[#301e51] outline-none md:w-fit w-full font-mont md:text-xs hover:bg-[#23163c]"
+        >
           <FaClipboard />
-          Copy to Clipboard
+          {isCopied ? "Copied!" : "Copy to Clipboard"}
         </button>
       </div>
       <div className="md:h-[calc(40%-3rem)] w-full h-0 bg-[#3D246C]  md:flex flex-col ">

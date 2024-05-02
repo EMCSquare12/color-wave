@@ -1,4 +1,5 @@
-import { CgMinimizeAlt } from "react-icons/cg";
+import { TbArrowsMinimize } from "react-icons/tb";
+
 import { useEffect } from "react";
 
 const GradientModal = ({ gradientModal, isOpen }) => {
@@ -18,7 +19,7 @@ const GradientModal = ({ gradientModal, isOpen }) => {
         onClick={() => isOpen(false)}
         className="float-right mt-6 mr-6 text-2xl text-white text-opacity-75 outline-none hover:text-opacity-100"
       >
-        <CgMinimizeAlt />
+        <TbArrowsMinimize />
       </button>
     </div>
   );
