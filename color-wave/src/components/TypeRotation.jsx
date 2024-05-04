@@ -1,9 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import selectionList from "./selectionList";
+import { GrRadialSelected } from "react-icons/gr";
+import { TbAngle } from "react-icons/tb";
 
 const TypeRotation = ({ callBackType, callbackRotation, type, rotation }) => {
   const [rotationList, setRotationList] = useState([]);
   const [toggleList, setToggleList] = useState(false);
+  //   const [selectedIndex, setSelectedIndex] = useState(8);
   const dropdownRef = useRef(null);
 
   const handleType = (value) => {
@@ -14,15 +17,6 @@ const TypeRotation = ({ callBackType, callbackRotation, type, rotation }) => {
     const randomType = Math.floor(Math.random() * typeLength);
     callbackRotation(typeList[randomType]);
     setToggleList(false);
-  };
-
-  const handleList = (value) => {
-    callbackRotation(value);
-    setToggleList(false);
-  };
-  const handleListChange = (value) => {
-    callbackRotation(value);
-    setToggleList(true);
   };
 
   useEffect(() => {
@@ -44,17 +38,48 @@ const TypeRotation = ({ callBackType, callbackRotation, type, rotation }) => {
     };
   }, []);
 
-//   useEffect(() => {
-//     const filteredList = selectionList[
-//       type === "linear" ? "linearList" : "radialList"
-//     ].filter((item) => item.toLowerCase().includes(rotation.toLowerCase()));
+  //   useEffect(() => {
+  //     const handleArrowDown = (event) => {
+  //       const selectedListLength =
+  //         selectionList[type === "linear" ? "linearList" : "radialList"];
+  //       if (toggleList === true && dropdownRef.current) {
+  //         if (
+  //           event.key === "ArrowDown" &&
+  //           selectedIndex < selectedListLength.length &&
+  //           selectedIndex >= 0
+  //         ) {
+  //           setSelectedIndex(selectedListLength.indexOf(rotation) + 1);
+  //         }
+  //       } else {
+  //         setSelectedIndex(selectedListLength.indexOf(rotation));
+  //       }
+  //     };
+  //     const handleArrowUp = (event) => {
+  //       const selectedListLength =
+  //         selectionList[type === "linear" ? "linearList" : "radialList"];
+  //       if (toggleList === true && dropdownRef.current) {
+  //         if (
+  //           event.key === "ArrowUp" &&
+  //           selectedIndex < selectedListLength.length &&
+  //           selectedIndex >= 0
+  //         ) {
+  //           setSelectedIndex(selectedListLength.indexOf(rotation) - 1);
+  //           callbackRotation(selectedListLength[indexOf(rotation)]);
+  //         }
+  //       } else {
+  //         setSelectedIndex(selectedListLength.indexOf(rotation));
+  //         callbackRotation(selectedListLength[indexOf(rotation)]);
+  //       }
+  //     };
 
-//     callbackRotation(
-//       rotation.trim() !== ""
-//         ? filteredList
-//         : selectionList[type === "linear" ? "linearList" : "radialList"]
-//     );
-//   }, [type, rotation]);
+  //     document.addEventListener("keydown", handleArrowDown);
+  //     document.addEventListener("keyup", handleArrowUp);
+
+  //     return () => {
+  //       document.removeEventListener("keydown", handleArrowDown);
+  //       document.removeEventListener("keyup", handleArrowUp);
+  //     };
+  //   }, [selectedIndex, toggleList, rotation]);
   return (
     <div
       ref={dropdownRef}
@@ -63,22 +88,24 @@ const TypeRotation = ({ callBackType, callbackRotation, type, rotation }) => {
       <div className="flex flex-row w-[50%] h-fit">
         <button
           onClick={() => handleType("linear")}
-          className={`w-[50%] md:h-12 border-gray-300 h-10 rounded-l border border-r-transparent hover:shadow font-poppins text-sm md:text-base ${
+          className={`w-[50%] md:h-12 border-gray-300 h-10 flex items-center justify-center gap-2 rounded-l border border-r-transparent font-semibold hover:shadow font-poppins text-sm md:text-base ${
             type === "linear"
               ? "bg-blue-600 text-white border-blue-600 hover:bg-blue-700"
               : "text-gray-500 hover:bg-gray-100 "
           }`}
         >
+          <TbAngle />
           Linear
         </button>
         <button
           onClick={() => handleType("radial")}
-          className={`w-[50%] border-gray-300 md:h-12 h-10 rounded-r border  hover:shadow font-poppins text-sm md:text-base ${
+          className={`w-[50%] border-gray-300 md:h-12 h-10 rounded-r justify-center gap-2 flex items-center border font-semibold  hover:shadow font-poppins text-sm md:text-base ${
             type === "radial"
               ? "bg-blue-600 text-white border-blue-600 hover:bg-blue-700"
               : "text-gray-500 hover:bg-gray-100  "
           }`}
         >
+          <GrRadialSelected />
           Radial
         </button>
       </div>
@@ -90,7 +117,9 @@ const TypeRotation = ({ callBackType, callbackRotation, type, rotation }) => {
             ),
               setToggleList(!toggleList);
           }}
-          onChange={(e) => handleListChange(e.target.value)}
+          onChange={(e) => {
+            callbackRotation(e.target.value), setToggleList(true);
+          }}
           value={rotation}
           type="text"
           className="z-20 w-full h-10 px-6 text-sm text-gray-500 border border-gray-300 rounded outline-none md:px-8 md:h-12 focus:ring-2 hover:shadow font-poppins md:text-base"
@@ -100,8 +129,10 @@ const TypeRotation = ({ callBackType, callbackRotation, type, rotation }) => {
             {rotationList.map((item, index) => (
               <li
                 key={index}
-                onClick={() => handleList(item)}
-                className={`flex items-center h-10 p-2 text-sm  rounded md:h-12 hover:text-white  md:p-4 font-font-poppins md:text-base ${
+                onClick={() => {
+                  callbackRotation(item), setToggleList(false);
+                }}
+                className={`flex items-center h-10 p-2 text-sm rounded md:h-12 hover:text-white  md:p-4 font-font-poppins md:text-base ${
                   rotation === item
                     ? "bg-blue-600 text-white"
                     : "hover:bg-blue-300 bg-white text-gray-500"

@@ -10,7 +10,6 @@ const ColorPosition = ({
 }) => {
   const [isOpenColor, setIsOpenColor] = useState(false);
   const colorRef = useRef(null);
-  const inputRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {

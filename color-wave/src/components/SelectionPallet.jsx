@@ -16,6 +16,7 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
   const [type, setType] = useState("");
   const [rotation, setRotation] = useState("");
   const [newColor, setNewColor] = useState([]);
+  const [gradient, setGradient] = useState("");
   const [color, setColor] = useState({
     firstColor: randomColor(),
     secondColor: randomColor(),
@@ -37,6 +38,7 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
       position.newPosition1 !== undefined ? position.newPosition1 + "%," : ""
     }`;
     const bgGradient = `${type}-gradient(${rotation}, ${color.firstColor} ${position.firstPosition}%, ${colorPosition0} ${colorPosition1}  ${color.secondColor} ${position.secondPosition}%)`;
+    setGradient(bgGradient);
     callbackGradient(bgGradient);
     callbackFirstColor(color.firstColor);
   }, [color, position, type, rotation]);
@@ -112,45 +114,50 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
     console.log(key, value);
   };
 
-  const exportAsImage = async (element, imageFileName) => {
-    const elementStyle = {
+  const downloadAsJPEG = () => {
+    const element = {
       width: "1440px",
-      height: "1024px",
-      zIndex: "10",
-      border: "none",
-      borderRadius: "0",
+      height: "1104px",
+      zIndex: "100",
+      background: gradient,
+      display: "flex",
+      alignItems: "flex-end",
     };
-    try {
-      for (const styleProperty in elementStyle) {
-        element.style[styleProperty] = elementStyle[styleProperty];
-      }
-      const canvas = await html2canvas(element);
-      const image = canvas.toDataURL("image/png", 1.0);
-      for (const styleProperty in elementStyle) {
-        element.style[styleProperty] = "";
-      }
+    const footer = {
+      height: "80px",
+      width: "100%",
+      background: "#ffffff",
+      display: "flex",
+      fontFamily: "Poppins, sans-serif",
+      paddingLeft: "32px",
+      justifyContent: "center",
+      color: "blue",
+      fontSize: "32px",
+      fontWeight: "bold",
+    };
 
-      downloadImage(image, imageFileName);
-    } catch (error) {
-      alert("Error exporting as image:", error);
-      console.error("Error exporting as image:", error);
-    }
+    const div = document.createElement("div");
+    Object.assign(div.style, element);
+
+    const footerDiv = document.createElement("div");
+    Object.assign(footerDiv.style, footer);
+    footerDiv.textContent = "Color Wave";
+    div.appendChild(footerDiv);
+
+    document.body.appendChild(div);
+
+    html2canvas(div).then(function (canvas) {
+      const imgData = canvas.toDataURL("image/jpeg");
+
+      const a = document.createElement("a");
+      a.href = imgData;
+      a.download = "gradient.jpg";
+
+      a.click();
+      document.body.removeChild(div);
+    });
   };
 
-  const downloadImage = (dataUrl, fileName) => {
-    const fakeLink = document.createElement("a");
-
-    fakeLink.style.display = "none";
-    fakeLink.download = fileName;
-
-    fakeLink.href = dataUrl;
-
-    document.body.appendChild(fakeLink);
-    fakeLink.click();
-    document.body.removeChild(fakeLink);
-
-    fakeLink.remove();
-  };
   return (
     <div className="flex flex-col w-full h-full gap-4 p-4 border border-gray-300 rounded-md shadow md:w-full md:gap-8 md:p-8">
       <TypeRotation
@@ -159,7 +166,6 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
         type={type}
         rotation={rotation}
       />
-
       <hr />
       <div className="flex flex-col w-full h-auto gap-4 ">
         <div className="flex flex-row w-full h-10 bg-gray-200 border-gray-300">
@@ -259,7 +265,10 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
         >
           Random
         </button>
-        <button className="w-auto h-10 px-4 text-sm text-white bg-blue-600 rounded md:h-12 font-poppins md:text-base hover:bg-blue-700 hover:shadow focus:ring-2">
+        <button
+          onClick={downloadAsJPEG}
+          className="w-auto h-10 px-4 text-sm text-white bg-blue-600 rounded md:h-12 font-poppins md:text-base hover:bg-blue-700 hover:shadow focus:ring-2"
+        >
           Download
         </button>
       </div>
