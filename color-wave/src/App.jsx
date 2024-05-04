@@ -37,8 +37,8 @@ function App() {
           isOpen={() => setModalIsOpen(true)}
         />
         <SelectionPallet
-          propsGradient={(value) => setBgGradient(value)}
-          propsFirstColor={(value) => setBgFirstColor(value)}
+          callbackGradient={(value) => setBgGradient(value)}
+          callbackFirstColor={(value) => setBgFirstColor(value)}
         />
       </div>
     </>
