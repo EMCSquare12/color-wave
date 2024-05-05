@@ -103,25 +103,25 @@ const Display = ({ gradient, bgColor, isOpen }) => {
       </div>
       <div className="md:h-[calc(40%-3rem)] w-full h-0 bg-[#3D246C]  md:flex flex-col ">
         <div
-          className={`w-full md:h-[calc(100%-3rem)] overflow-y-auto h-[50%] bg-[#3D246C] p-6 flex flex-col md:gap-3 gap-2 ${
+          className={`w-full md:h-[calc(100%-3rem)] overflow-y-auto h-[50%] bg-[#3D246C] p-6 flex flex-col  gap-2 ${
             width < 768
               ? `${isCodeOpen === false ? "hidden" : "absolute top-0"} `
               : ""
           }`}
         >
-          <div className="flex flex-row gap-3 ">
-            <h1 className="flex items-start text-xs font-bold text-gray-300 md:text-sm font-poppins">
+          <div className="flex flex-row gap-2 ">
+            <h1 className="flex items-start font-mono text-xs font-bold text-gray-300 md:text-sm">
               Background:
             </h1>
-            <p className="flex items-center gap-1 text-xs font-medium text-gray-200 md:text-sm font-mont ">
+            <p className="flex items-center gap-1 font-mono text-xs font-semibold text-gray-200 md:text-sm ">
               {addSpanToColorValues(bgColor)}
             </p>
           </div>
-          <div className="flex flex-row gap-3 ">
-            <h1 className="flex items-start text-xs font-bold text-gray-300 md:text-sm font-poppins">
+          <div className="flex flex-row gap-2 ">
+            <h1 className="flex items-start font-mono text-xs font-bold text-gray-300 md:text-sm">
               Background:
             </h1>
-            <p className="flex flex-row flex-wrap items-center w-full gap-1 text-xs font-medium text-gray-200 md:gap-2 md:text-sm font-mont">
+            <p className="flex flex-row flex-wrap items-center w-full gap-1 font-mono text-xs font-semibold text-gray-200 md:gap-2 md:text-sm">
               {addSpanToColorValues(gradient)}
             </p>
           </div>
