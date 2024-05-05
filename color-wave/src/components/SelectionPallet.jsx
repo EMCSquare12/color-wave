@@ -62,6 +62,7 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
     console.log(newColor);
   };
 
+  console.log(newColor);
   const handleDelete = (index) => {
     const filteredNewColor = newColor.filter((_, id) => id !== index);
     const colorObj = Object.entries(color);

@@ -1,11 +1,14 @@
 import { CgMaximizeAlt } from "react-icons/cg";
 import { FaClipboard } from "react-icons/fa";
 import copy from "clipboard-copy";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import { IoCloseSharp } from "react-icons/io5";
 
 const Display = ({ gradient, bgColor, isOpen }) => {
   const timeOutRef = useRef(null);
   const [isCopied, setIsCopied] = useState(false);
+  const [width, setWidth] = useState(window.innerWidth);
+  const [isCodeOpen, setIsCodeOpen] = useState(false);
 
   const handleCopyToClipBoard = () => {
     copy(
@@ -31,6 +34,18 @@ const Display = ({ gradient, bgColor, isOpen }) => {
   //   }
   // };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+    console.log(width);
+    console.log(isCodeOpen);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [width, isCodeOpen]);
+
   return (
     <div className="relative md:w-full border-gray-300 h-[250px]  md:h-full w-full rounded-md shadow border overflow-hidden">
       <div
@@ -45,7 +60,15 @@ const Display = ({ gradient, bgColor, isOpen }) => {
         </button>
       </div>
       <div className="w-full md:h-[3rem] h-[2.5rem] bg-[#7f6eb8] flex justify-end md:justify-between items-center ">
-        <button className="md:flex items-center justify-center h-full px-4 text-sm font-bold text-gray-300 bg-[#5C4B99] outline-none w-fit font-mont md:text-base ">
+        <button
+          disabled={width >= 768}
+          onClick={() => setIsCodeOpen(true)}
+          className={`md:flex items-center justify-center h-full px-4 text-sm font-bold text-gray-300 ${
+            width < 768
+              ? " hover:bg-[#52418d] focus:bg-[#423474] bg-[#5C4B99] "
+              : ""
+          }bg-[#5C4B99]  outline-none w-fit font-mont md:text-base`}
+        >
           CSS
         </button>
         <button
@@ -60,7 +83,13 @@ const Display = ({ gradient, bgColor, isOpen }) => {
         </button>
       </div>
       <div className="md:h-[calc(40%-3rem)] w-full h-0 bg-[#3D246C]  md:flex flex-col ">
-        <div className="w-full md:h-[calc(100%-3rem)] h-0 bg-[#3D246C] p-6 md:flex flex-col gap-3">
+        <div
+          className={`w-full md:h-[calc(100%-3rem)] h-[50%] bg-[#3D246C] p-6 md:flex flex-col gap-3 ${
+            width < 768
+              ? `${isCodeOpen === false ? "hidden" : "absolute"} top-0`
+              : ""
+          }`}
+        >
           <div className="flex flex-row gap-3 ">
             <h1 className="flex items-start text-sm font-bold text-gray-300 font-poppins">
               Background:
@@ -77,6 +106,14 @@ const Display = ({ gradient, bgColor, isOpen }) => {
               {gradient}
             </p>
           </div>
+          {width < 768 && (
+            <button
+              onClick={() => setIsCodeOpen(false)}
+              className="absolute top-0 right-0 mt-4 mr-4 text-lg text-red-600"
+            >
+              <IoCloseSharp />
+            </button>
+          )}
         </div>
         <button
           style={{ background: isCopied ? gradient : "" }}
