@@ -34,6 +34,25 @@ const Display = ({ gradient, bgColor, isOpen }) => {
   //   }
   // };
 
+  const addSpanToColorValues = (gradient) => {
+    const colors = gradient.split(",").map((color) => {
+      const colorValue = color.match(/#[0-9a-fA-F]{6}/);
+      if (colorValue) {
+        return (
+          <span className="flex flex-row items-center justify-center h-auto gap-1 w-fit">
+            <span
+              style={{ background: colorValue[0] }}
+              className="w-3 h-3 gap-2 border"
+            />
+            {color}
+          </span>
+        );
+      }
+      return color;
+    });
+    return colors;
+  };
+
   useEffect(() => {
     const handleResize = () => {
       setWidth(window.innerWidth);
@@ -84,26 +103,26 @@ const Display = ({ gradient, bgColor, isOpen }) => {
       </div>
       <div className="md:h-[calc(40%-3rem)] w-full h-0 bg-[#3D246C]  md:flex flex-col ">
         <div
-          className={`w-full md:h-[calc(100%-3rem)] h-[50%] bg-[#3D246C] p-6 md:flex flex-col gap-3 ${
+          className={`w-full md:h-[calc(100%-3rem)] overflow-y-auto h-[50%] bg-[#3D246C] p-6 flex flex-col md:gap-3 gap-2 ${
             width < 768
-              ? `${isCodeOpen === false ? "hidden" : "absolute"} top-0`
+              ? `${isCodeOpen === false ? "hidden" : "absolute top-0"} `
               : ""
           }`}
         >
           <div className="flex flex-row gap-3 ">
-            <h1 className="flex items-start text-sm font-bold text-gray-300 font-poppins">
+            <h1 className="flex items-start text-xs font-bold text-gray-300 md:text-sm font-poppins">
               Background:
             </h1>
-            <p className="flex items-center gap-1 text-sm font-medium text-gray-200 font-mont">
-              {bgColor}
+            <p className="flex items-center gap-1 text-xs font-medium text-gray-200 md:text-sm font-mont ">
+              {addSpanToColorValues(bgColor)}
             </p>
           </div>
           <div className="flex flex-row gap-3 ">
-            <h1 className="flex items-start text-sm font-bold text-gray-300 font-poppins">
+            <h1 className="flex items-start text-xs font-bold text-gray-300 md:text-sm font-poppins">
               Background:
             </h1>
-            <p className="flex items-center w-full gap-1 text-sm font-medium text-gray-200 break-words whitespace-pre-line font-mont">
-              {gradient}
+            <p className="flex flex-row flex-wrap items-center w-full gap-1 text-xs font-medium text-gray-200 md:gap-2 md:text-sm font-mont">
+              {addSpanToColorValues(gradient)}
             </p>
           </div>
           {width < 768 && (
