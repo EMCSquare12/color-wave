@@ -131,7 +131,7 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
       fontFamily: "Poppins, sans-serif",
       paddingLeft: "32px",
       justifyContent: "center",
-      color: "blue",
+      color: "#2563eb",
       fontSize: "32px",
       fontWeight: "bold",
     };

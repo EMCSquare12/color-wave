@@ -6,7 +6,7 @@ import { TbAngle } from "react-icons/tb";
 const TypeRotation = ({ callBackType, callbackRotation, type, rotation }) => {
   const [rotationList, setRotationList] = useState([]);
   const [toggleList, setToggleList] = useState(false);
-  //   const [selectedIndex, setSelectedIndex] = useState(8);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const dropdownRef = useRef(null);
 
   const handleType = (value) => {
@@ -38,48 +38,39 @@ const TypeRotation = ({ callBackType, callbackRotation, type, rotation }) => {
     };
   }, []);
 
-  //   useEffect(() => {
-  //     const handleArrowDown = (event) => {
-  //       const selectedListLength =
-  //         selectionList[type === "linear" ? "linearList" : "radialList"];
-  //       if (toggleList === true && dropdownRef.current) {
-  //         if (
-  //           event.key === "ArrowDown" &&
-  //           selectedIndex < selectedListLength.length &&
-  //           selectedIndex >= 0
-  //         ) {
-  //           setSelectedIndex(selectedListLength.indexOf(rotation) + 1);
-  //         }
-  //       } else {
-  //         setSelectedIndex(selectedListLength.indexOf(rotation));
-  //       }
-  //     };
-  //     const handleArrowUp = (event) => {
-  //       const selectedListLength =
-  //         selectionList[type === "linear" ? "linearList" : "radialList"];
-  //       if (toggleList === true && dropdownRef.current) {
-  //         if (
-  //           event.key === "ArrowUp" &&
-  //           selectedIndex < selectedListLength.length &&
-  //           selectedIndex >= 0
-  //         ) {
-  //           setSelectedIndex(selectedListLength.indexOf(rotation) - 1);
-  //           callbackRotation(selectedListLength[indexOf(rotation)]);
-  //         }
-  //       } else {
-  //         setSelectedIndex(selectedListLength.indexOf(rotation));
-  //         callbackRotation(selectedListLength[indexOf(rotation)]);
-  //       }
-  //     };
+  useEffect(() => {
+    const handleArrow = (event, direction) => {
+      const selectedListLength =
+        selectionList[type === "linear" ? "linearList" : "radialList"];
+      if (toggleList && dropdownRef.current) {
+        if (
+          (direction === "down" && event.key === "ArrowDown") ||
+          (direction === "up" && event.key === "ArrowUp")
+        ) {
+          const newIndex =
+            direction === "down"
+              ? Math.min(selectedIndex + 1, selectedListLength.length - 1)
+              : Math.max(selectedIndex - 1, 0);
+          setSelectedIndex(newIndex);
+          callbackRotation(selectedListLength[newIndex]);
+        }
+      }
+    };
 
-  //     document.addEventListener("keydown", handleArrowDown);
-  //     document.addEventListener("keyup", handleArrowUp);
+    const handleKeyDown = (event) => handleArrow(event, "down");
+    const handleKeyUp = (event) => handleArrow(event, "up");
 
-  //     return () => {
-  //       document.removeEventListener("keydown", handleArrowDown);
-  //       document.removeEventListener("keyup", handleArrowUp);
-  //     };
-  //   }, [selectedIndex, toggleList, rotation]);
+    console.log(selectedIndex);
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keyup", handleKeyUp);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keyup", handleKeyUp);
+    };
+  }, [selectedIndex, toggleList, rotation]);
+
   return (
     <div
       ref={dropdownRef}
