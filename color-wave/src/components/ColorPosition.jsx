@@ -10,6 +10,7 @@ const ColorPosition = ({
 }) => {
   const [isOpenColor, setIsOpenColor] = useState(false);
   const colorRef = useRef(null);
+  const colorInputRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -24,6 +25,24 @@ const ColorPosition = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        colorInputRef.current &&
+        !colorInputRef.current.contains(event.target) &&
+        (color.length === 0 || color === "#")
+      ) {
+        callbackColor("#000000");
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [color]);
 
   const handleCallbackColor = (key, value) => {
     const validValue = value.replace(/[^#0-9A-Fa-f]/g, "").substring(0, 9);
@@ -55,6 +74,7 @@ const ColorPosition = ({
       </div>
       <div className="w-[45%] h-auto flex items-center justify-center   p-2">
         <input
+          ref={colorInputRef}
           onChange={(e) => handleCallbackColor(colorKey, e.target.value)}
           onClick={() => setIsOpenColor(true)}
           value={color}

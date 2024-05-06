@@ -63,9 +63,8 @@ const Display = ({ gradient, bgColor, isOpen }) => {
   useEffect(() => {
     const handleResize = () => {
       setWidth(window.innerWidth);
+      setIsCodeOpen(width < 768);
     };
-    console.log(width);
-    console.log(isCodeOpen);
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);

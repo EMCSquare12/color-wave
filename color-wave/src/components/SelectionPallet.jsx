@@ -103,7 +103,7 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
   const handleCallbackColor = (key, value) => {
     setColor((prev) => ({
       ...prev,
-      [key]: value !== "" ? value : "#000000",
+      [key]: value,
     }));
     console.log(key, value);
   };
