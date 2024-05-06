@@ -38,14 +38,14 @@ const Display = ({ gradient, bgColor, isOpen }) => {
     const colors = gradient.split(",").map((color, index, array) => {
       const colorValue = color.match(/#[0-9a-fA-F]{6}/);
       if (colorValue) {
-        console.log(color);
-        // Check if this is the last color in the array
         const isLastColor = index === array.length - 1;
-        // Determine the suffix based on whether it's the last color
         const suffix = isLastColor ? ";" : ",";
-        
+
         return (
-          <span className="flex flex-row items-center justify-center h-auto gap-1 w-fit" key={index}>
+          <span
+            className="flex flex-row items-center justify-center h-auto gap-1 w-fit"
+            key={index}
+          >
             <span
               style={{ background: colorValue[0] }}
               className="w-3 h-3 gap-2 border"
@@ -56,7 +56,7 @@ const Display = ({ gradient, bgColor, isOpen }) => {
       }
       return `${color},`;
     });
-    
+
     return colors;
   };
 

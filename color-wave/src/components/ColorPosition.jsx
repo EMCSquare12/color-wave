@@ -26,8 +26,10 @@ const ColorPosition = ({
   }, []);
 
   const handleCallbackColor = (key, value) => {
-    callbackColor(value);
+    const validValue = value.replace(/[^#0-9A-Fa-f]/g, "").substring(0, 9);
+    callbackColor(validValue);
   };
+
   const handleCallbackPosition = (key, value) => {
     callbackPosition(value);
   };
