@@ -160,20 +160,20 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
       <hr />
       <div className="flex flex-col w-full h-auto gap-4 ">
         <div className="flex flex-row w-full h-10 bg-gray-200 border-gray-300">
-          <div className="w-[15%] h-full flex items-center justify-center ">
+          <div className="w-[20%] h-full flex items-center justify-center ">
             <IoColorPalette className="text-sm text-gray-400 md:text-base" />
           </div>
-          <div className="w-[45%] h-full flex items-center justify-center ">
+          <div className="w-[50%] h-full flex items-center justify-center ">
             <h1 className="text-sm font-bold text-gray-400 font-mont md:text-base">
               Color
             </h1>
           </div>
-          <div className="w-[25%] h-full flex items-center justify-center ">
+          <div className="w-[20%] h-full flex items-center justify-center ">
             <h1 className="text-sm font-bold text-gray-400 font-mont md:text-base">
               Position
             </h1>
           </div>
-          <div className="w-[15%] h-full"></div>
+          <div className="w-[10%] h-full"></div>
         </div>
         <div className="flex flex-col w-full h-auto rounded shadow ">
           <div className="flex flex-row">
@@ -189,7 +189,7 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
               colorKey={"firstColor"}
               positionKey={"firstPosition"}
             />
-            <div className="w-[15%] h-auto flex items-center justify-center p-2">
+            <div className="w-[10%] h-auto flex items-center justify-center p-2">
               <LuCircleSlash2 className="text-sm text-gray-500 cursor-not-allowed md:text-base" />
             </div>
           </div>
@@ -206,7 +206,7 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
               colorKey={"secondColor"}
               positionKey={"secondPosition"}
             />
-            <div className="w-[15%] h-auto flex items-center justify-center p-2">
+            <div className="w-[10%] h-auto flex items-center justify-center p-2">
               <LuCircleSlash2 className="text-sm text-gray-500 cursor-not-allowed md:text-base" />
             </div>
           </div>
@@ -225,7 +225,7 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
                 positionKey={`newPosition${index}`}
               />
 
-              <div className="w-[15%] h-auto flex items-center justify-center p-2">
+              <div className="w-[10%] h-auto flex items-center justify-center p-2">
                 <button
                   onClick={() => {
                     console.log("Clicked delete button for index:", index);

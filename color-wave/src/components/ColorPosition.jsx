@@ -70,7 +70,7 @@ const ColorPosition = ({
     <>
       <div
         ref={colorRef}
-        className="w-[15%] h-auto flex items-center justify-center md:p-3 p-2  relative"
+        className="w-[20%] h-auto flex items-center justify-center md:p-3 p-2  relative"
       >
         <button
           style={{ backgroundColor: color }}
@@ -86,7 +86,7 @@ const ColorPosition = ({
           </div>
         )}
       </div>
-      <div className="w-[45%] h-auto flex items-center justify-center   p-2">
+      <div className="w-[50%] h-auto flex items-center justify-center   p-2">
         <input
           ref={colorInputRef}
           onChange={(e) => handleCallbackColor(colorKey, e.target.value)}
@@ -96,7 +96,7 @@ const ColorPosition = ({
           className="w-full h-10 px-2 text-sm text-center text-gray-500 border border-gray-300 rounded outline-none hover:shadow focus:ring-2 md:h-12 font-poppins md:text-base md:px-4"
         />
       </div>
-      <div className="w-[25%] h-auto flex items-center justify-center   p-2">
+      <div className="w-[20%] h-auto flex items-center justify-center   p-2">
         <input
           ref={positionRef}
           value={position}

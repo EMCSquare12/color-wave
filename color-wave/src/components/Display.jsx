@@ -26,7 +26,7 @@ const Display = ({ gradient, bgColor, isOpen }) => {
   // const codeFormatter = (gradientString) => {
   //   if (typeof gradientString === "string") {
   //     const colorStops = gradientString.split(",");
-  //     const formattedGradient = colorStops.map((stop, index) => {
+  //     const formattedGradient = colorStops.map((stop, i  ndex) => {
   //       return index < colorStops.length - 1 ? `${stop},\n\t` : stop;
   //     });
   //     return formattedGradient.join("");
@@ -49,7 +49,7 @@ const Display = ({ gradient, bgColor, isOpen }) => {
           >
             <span
               style={{ background: colorValue[0] }}
-              className="w-3 h-3 gap-2 border"
+              className="w-2 h-2 gap-2 border md:w-3 md:h-3"
             />
             {color + suffix}
           </span>
@@ -89,7 +89,7 @@ const Display = ({ gradient, bgColor, isOpen }) => {
         <button
           disabled={width >= 768}
           onClick={() => setIsCodeOpen(true)}
-          className={`md:flex items-center justify-center h-full px-4 text-sm font-bold text-gray-300 ${
+          className={`md:flex items-center justify-center h-full px-4 text-sm font-bold text-gray-200 ${
             width < 768
               ? " hover:bg-[#52418d] focus:bg-[#423474] bg-[#5C4B99] "
               : ""
@@ -102,7 +102,7 @@ const Display = ({ gradient, bgColor, isOpen }) => {
             background: isCopied ? gradient : "",
           }}
           onClick={handleCopyToClipBoard}
-          className=" gap-2 flex md:hidden items-center justify-center h-full px-4 text-xs font-bold text-gray-300  bg-[#301e51] outline-none md:w-fit w-full font-mont md:text-xs hover:bg-[#23163c]"
+          className=" gap-2 flex md:hidden items-center justify-center h-full px-4 text-xs font-bold text-gray-200  bg-[#301e51] outline-none md:w-fit w-full font-mont md:text-xs hover:bg-[#23163c]"
         >
           <FaClipboard />
           {isCopied ? "Copied!" : "Copy to Clipboard"}
@@ -117,7 +117,7 @@ const Display = ({ gradient, bgColor, isOpen }) => {
           }`}
         >
           <div className="flex flex-row gap-2 ">
-            <h1 className="flex items-start font-mono text-xs font-bold text-gray-300 md:text-sm">
+            <h1 className="flex items-start font-mono text-xs font-bold text-gray-200 md:text-sm">
               Background:
             </h1>
             <p className="flex items-center gap-1 font-mono text-xs font-semibold text-gray-200 md:text-sm ">
@@ -125,7 +125,7 @@ const Display = ({ gradient, bgColor, isOpen }) => {
             </p>
           </div>
           <div className="flex flex-row gap-2 ">
-            <h1 className="flex items-start font-mono text-xs font-bold text-gray-300 md:text-sm">
+            <h1 className="flex items-start font-mono text-xs font-bold text-gray-200 md:text-sm">
               Background:
             </h1>
             <p className="flex flex-row flex-wrap items-center w-full gap-1 font-mono text-xs font-semibold text-gray-200 md:gap-2 md:text-sm">
