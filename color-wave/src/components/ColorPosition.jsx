@@ -11,6 +11,7 @@ const ColorPosition = ({
   const [isOpenColor, setIsOpenColor] = useState(false);
   const colorRef = useRef(null);
   const colorInputRef = useRef(null);
+  const positionRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -31,9 +32,21 @@ const ColorPosition = ({
       if (
         colorInputRef.current &&
         !colorInputRef.current.contains(event.target) &&
-        (color.length === 0 || color === "#")
+        (color === "" || color === "#")
       ) {
         callbackColor("#000000");
+      } else if (
+        positionRef.current &&
+        !positionRef.current.contains(event.target) &&
+        position === ""
+      ) {
+        const positionMap = {
+          firstPosition: 0,
+          secondPosition: 100,
+          newPosition0: 30,
+          newPosition1: 70,
+        };
+        callbackPosition(positionMap[positionKey]);
       }
     };
 
@@ -42,7 +55,7 @@ const ColorPosition = ({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [color]);
+  }, [color, position]);
 
   const handleCallbackColor = (key, value) => {
     const validValue = value.replace(/[^#0-9A-Fa-f]/g, "").substring(0, 9);
@@ -52,11 +65,12 @@ const ColorPosition = ({
   const handleCallbackPosition = (key, value) => {
     callbackPosition(value);
   };
+
   return (
     <>
       <div
         ref={colorRef}
-        className="w-[15%] h-auto flex items-center justify-center p-2 relative"
+        className="w-[15%] h-auto flex items-center justify-center md:p-3 p-2  relative"
       >
         <button
           style={{ backgroundColor: color }}
@@ -84,6 +98,7 @@ const ColorPosition = ({
       </div>
       <div className="w-[25%] h-auto flex items-center justify-center   p-2">
         <input
+          ref={positionRef}
           value={position}
           max={100}
           min={0}

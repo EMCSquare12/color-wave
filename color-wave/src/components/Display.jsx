@@ -22,6 +22,7 @@ const Display = ({ gradient, bgColor, isOpen }) => {
       setIsCopied(false);
     }, 1500);
   };
+
   // const codeFormatter = (gradientString) => {
   //   if (typeof gradientString === "string") {
   //     const colorStops = gradientString.split(",");

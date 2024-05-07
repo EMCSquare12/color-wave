@@ -60,6 +60,7 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
       [`newPosition${newIndex}`]: addedNewPosition,
     }));
     console.log(newColor);
+    console.log(color);
   };
 
   console.log(newColor);
@@ -67,27 +68,16 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
     const filteredNewColor = newColor.filter((_, id) => id !== index);
     const colorObj = Object.entries(color);
     const positionObj = Object.entries(position);
-    const filteredColorEntries = colorObj.filter(([key], id) => {
-      if (id < 2) {
-        return true;
-      } else {
-        return id !== index + 2;
-      }
-    });
-    const filteredPositionEntries = positionObj.filter(([key], id) => {
-      if (id < 2) {
-        return true;
-      } else {
-        return id !== index + 2;
-      }
-    });
-
+    const filteredColorEntries = colorObj.filter(
+      (_, id) => id < 2 || id !== index + 2
+    );
+    const filteredPositionEntries = positionObj.filter(
+      (_, id) => id < 2 || id !== index + 2
+    );
     const newColorObj = Object.fromEntries(filteredColorEntries);
     const newPositionObj = Object.fromEntries(filteredPositionEntries);
-
     setColor(newColorObj);
     setPosition(newPositionObj);
-
     setNewColor(filteredNewColor);
   };
 
@@ -110,7 +100,7 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
   const handleCallbackPosition = (key, value) => {
     setPosition((prev) => ({
       ...prev,
-      [key]: value !== "" ? value : 0,
+      [key]: value,
     }));
     console.log(key, value);
   };
@@ -253,7 +243,11 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
         <button
           disabled={newColor.length === 2}
           onClick={handleNewColor}
-          className="w-[15%] flex items-center justify-center text-blue-500 hover:text-blue-600 font-poppins text-sm md:text-base"
+          className={`w-[15%] flex items-center justify-center ${
+            newColor.length === 2
+              ? "text-gray-500 cursor-not-allowed"
+              : "text-blue-500 hover:text-blue-600"
+          } font-poppins text-sm md:text-base`}
         >
           <AiOutlinePlus /> Add
         </button>
