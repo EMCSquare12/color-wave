@@ -23,25 +23,23 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
   });
 
   useEffect(() => {
-    const colorPosition2 = `${
-      colorPosition.color[2] !== undefined ? colorPosition.color[2] : ""
-    } ${
-      colorPosition.position[2] !== undefined
-        ? colorPosition.position[2] + "%,"
-        : ""
-    }`;
-    const colorPosition3 = `${
-      colorPosition.color[3] !== undefined ? colorPosition.color[3] : ""
-    } ${
-      colorPosition.position[3] !== undefined
-        ? colorPosition.position[3] + "%,"
-        : ""
-    }`;
-    const bgGradient = `${type}-gradient(${rotation}, ${colorPosition.color[0]} ${colorPosition.position[0]}%, ${colorPosition2} ${colorPosition3}  ${colorPosition.color[1]} ${colorPosition.position[1]}%)`;
+    let bgGradient = `${type}-gradient(${rotation}, ${colorPosition.color[0]} ${colorPosition.position[0]}%, `;
+
+    for (let i = 2; i <= 3; i++) {
+      if (
+        colorPosition.color[i] !== undefined &&
+        colorPosition.position[i] !== undefined
+      ) {
+        bgGradient += `${colorPosition.color[i]} ${colorPosition.position[i]}%, `;
+      }
+    }
+
+    bgGradient += `${colorPosition.color[1]} ${colorPosition.position[1]}%)`;
+
     setGradient(bgGradient);
     callbackGradient(bgGradient);
     callbackFirstColor(colorPosition.color[0]);
-  }, [colorPosition, , type, rotation]);
+  }, [colorPosition, type, rotation]);
 
   const handleNewColorPosition = () => {
     const index = mapItem.length;
