@@ -15,94 +15,73 @@ const randomColor = () => {
 const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
   const [type, setType] = useState("");
   const [rotation, setRotation] = useState("");
-  const [newColor, setNewColor] = useState([]);
   const [gradient, setGradient] = useState("");
-  const [color, setColor] = useState({
-    firstColor: randomColor(),
-    secondColor: randomColor(),
-  });
-  const [position, setPosition] = useState({
-    firstPosition: 0,
-    secondPosition: 100,
+  const [mapItem, setMapItem] = useState([]);
+  const [colorPosition, setColorPosition] = useState({
+    color: [randomColor(), randomColor()],
+    position: [0, 100],
   });
 
   useEffect(() => {
-    const colorPosition0 = `${
-      color.newColor0 !== undefined ? color.newColor0 : ""
+    const colorPosition2 = `${
+      colorPosition.color[2] !== undefined ? colorPosition.color[2] : ""
     } ${
-      position.newPosition0 !== undefined ? position.newPosition0 + "%," : ""
+      colorPosition.position[2] !== undefined
+        ? colorPosition.position[2] + "%,"
+        : ""
     }`;
-    const colorPosition1 = `${
-      color.newColor1 !== undefined ? color.newColor1 : ""
+    const colorPosition3 = `${
+      colorPosition.color[3] !== undefined ? colorPosition.color[3] : ""
     } ${
-      position.newPosition1 !== undefined ? position.newPosition1 + "%," : ""
+      colorPosition.position[3] !== undefined
+        ? colorPosition.position[3] + "%,"
+        : ""
     }`;
-    const bgGradient = `${type}-gradient(${rotation}, ${color.firstColor} ${position.firstPosition}%, ${colorPosition0} ${colorPosition1}  ${color.secondColor} ${position.secondPosition}%)`;
+    const bgGradient = `${type}-gradient(${rotation}, ${colorPosition.color[0]} ${colorPosition.position[0]}%, ${colorPosition2} ${colorPosition3}  ${colorPosition.color[1]} ${colorPosition.position[1]}%)`;
     setGradient(bgGradient);
     callbackGradient(bgGradient);
-    callbackFirstColor(color.firstColor);
-  }, [color, position, type, rotation]);
+    callbackFirstColor(colorPosition.color[0]);
+  }, [colorPosition, , type, rotation]);
 
-  const handleNewColor = () => {
-    const addedNewColor = randomColor();
-    const addedNewPosition = newColor.length === 0 ? 30 : 70;
-    const newIndex = newColor.length;
+  const handleNewColorPosition = () => {
+    const index = mapItem.length;
+    setMapItem([...mapItem, null]);
 
-    setNewColor((prevNewColor) => [...prevNewColor, null]);
-
-    setColor((prevColor) => ({
-      ...prevColor,
-      [`newColor${newIndex}`]: addedNewColor,
+    setColorPosition((prevValue) => ({
+      ...prevValue,
+      color: [...prevValue.color, randomColor()],
+      position: [...prevValue.position, index === 0 ? 30 : 70],
     }));
-
-    setPosition((prevPosition) => ({
-      ...prevPosition,
-      [`newPosition${newIndex}`]: addedNewPosition,
-    }));
-    console.log(newColor);
-    console.log(color);
+    console.log(colorPosition);
   };
 
-  console.log(newColor);
   const handleDelete = (index) => {
-    const filteredNewColor = newColor.filter((_, id) => id !== index);
-    const colorObj = Object.entries(color);
-    const positionObj = Object.entries(position);
-    const filteredColorEntries = colorObj.filter(
-      (_, id) => id < 2 || id !== index + 2
+    const filteredColor = colorPosition.color.filter(
+      (_, id) => id !== index + 2
     );
-    const filteredPositionEntries = positionObj.filter(
-      (_, id) => id < 2 || id !== index + 2
+    const filteredPosition = colorPosition.position.filter(
+      (_, id) => id !== index + 2
     );
-    const newColorObj = Object.fromEntries(filteredColorEntries);
-    const newPositionObj = Object.fromEntries(filteredPositionEntries);
-    setColor(newColorObj);
-    setPosition(newPositionObj);
-    setNewColor(filteredNewColor);
+    const filteredMapItem = mapItem.filter((_, id) => id !== index);
+
+    setColorPosition({
+      color: filteredColor,
+      position: filteredPosition,
+    });
+    setMapItem(filteredMapItem);
+    console.log(filteredColor);
   };
 
   const handleRandom = () => {
-    const updatedColor = {};
-    for (const key in color) {
-      updatedColor[key] = randomColor();
-    }
-    console.log(updatedColor);
-    setColor(updatedColor);
+    const updatedColor = { ...colorPosition };
+    updatedColor.color = updatedColor.color.map(() => randomColor());
+    setColorPosition(updatedColor);
   };
 
-  const handleCallbackColor = (key, value) => {
-    setColor((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-    console.log(key, value);
-  };
-  const handleCallbackPosition = (key, value) => {
-    setPosition((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-    console.log(key, value);
+  const handleColorPosition = (value, index, array) => {
+    const updatedColor = { ...colorPosition };
+    updatedColor[array][index] = value;
+    setColorPosition(updatedColor);
   };
 
   const downloadAsJPEG = () => {
@@ -178,16 +157,12 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
         <div className="flex flex-col w-full h-auto rounded shadow ">
           <div className="flex flex-row">
             <ColorPosition
-              color={color.firstColor}
-              position={position.firstPosition}
-              callbackColor={(value) =>
-                handleCallbackColor("firstColor", value)
-              }
+              color={colorPosition.color[0]}
+              position={colorPosition.position[0]}
+              callbackColor={(value) => handleColorPosition(value, 0, "color")}
               callbackPosition={(value) =>
-                handleCallbackPosition("firstPosition", value)
+                handleColorPosition(value, 0, "position")
               }
-              colorKey={"firstColor"}
-              positionKey={"firstPosition"}
             />
             <div className="w-[10%] h-auto flex items-center justify-center p-2">
               <LuCircleSlash2 className="text-sm text-gray-500 cursor-not-allowed md:text-base" />
@@ -195,40 +170,33 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
           </div>
           <div className="flex flex-row">
             <ColorPosition
-              color={color.secondColor}
-              position={position.secondPosition}
-              callbackColor={(value) =>
-                handleCallbackColor("secondColor", value)
-              }
+              color={colorPosition.color[1]}
+              position={colorPosition.position[1]}
+              callbackColor={(value) => handleColorPosition(value, 1, "color")}
               callbackPosition={(value) =>
-                handleCallbackPosition("secondPosition", value)
+                handleColorPosition(value, 1, "position")
               }
-              colorKey={"secondColor"}
-              positionKey={"secondPosition"}
             />
             <div className="w-[10%] h-auto flex items-center justify-center p-2">
               <LuCircleSlash2 className="text-sm text-gray-500 cursor-not-allowed md:text-base" />
             </div>
           </div>
-          {newColor.map((item, index) => (
+          {mapItem.map((item, index) => (
             <div key={index} className="flex flex-row">
               <ColorPosition
-                color={color[`newColor${index}`]}
-                position={position[`newPosition${index}`]}
+                color={colorPosition.color[index + 2]}
+                position={colorPosition.position[[index + 2]]}
                 callbackColor={(value) =>
-                  handleCallbackColor(`newColor${index}`, value)
+                  handleColorPosition(value, index, "color")
                 }
                 callbackPosition={(value) =>
-                  handleCallbackPosition(`newPosition${index}`, value)
+                  handleCallbackPosition(value, index, "position")
                 }
-                colorKey={`newColor${index}`}
-                positionKey={`newPosition${index}`}
               />
 
               <div className="w-[10%] h-auto flex items-center justify-center p-2">
                 <button
                   onClick={() => {
-                    console.log("Clicked delete button for index:", index);
                     handleDelete(index);
                   }}
                 >
@@ -241,10 +209,10 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
       </div>
       <div className="flex justify-end w-full -mt-2 md:-mt-6">
         <button
-          disabled={newColor.length === 2}
-          onClick={handleNewColor}
+          disabled={mapItem.length === 2}
+          onClick={handleNewColorPosition}
           className={`w-[15%] flex items-center justify-center ${
-            newColor.length === 2
+            mapItem.length === 2
               ? "text-gray-500 cursor-not-allowed"
               : "text-blue-500 hover:text-blue-600"
           } font-poppins text-sm md:text-base`}
