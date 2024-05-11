@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoColorPalette } from "react-icons/io5";
 import ColorPosition from "./ColorPosition";
 import { LuCircleSlash2 } from "react-icons/lu";
@@ -16,7 +16,6 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
   const [type, setType] = useState("");
   const [rotation, setRotation] = useState("");
   const [gradient, setGradient] = useState("");
-  const [mapItem, setMapItem] = useState([]);
   const [colorPosition, setColorPosition] = useState({
     color: [randomColor(), randomColor()],
     position: [0, 100],
@@ -38,19 +37,27 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
 
     setGradient(bgGradient);
     callbackGradient(bgGradient);
-    callbackFirstColor(colorPosition.color[0]);
-  }, [colorPosition, type, rotation]);
+    callbackFirstColor(color.firstColor);
+  }, [color, position, type, rotation]);
 
-  const handleNewColorPosition = () => {
-    const index = mapItem.length;
-    setMapItem([...mapItem, null]);
+  const handleNewColor = () => {
+    const addedNewColor = randomColor();
+    const addedNewPosition = newColor.length === 0 ? 30 : 70;
+    const newIndex = newColor.length;
 
-    setColorPosition((prevValue) => ({
-      ...prevValue,
-      color: [...prevValue.color, randomColor()],
-      position: [...prevValue.position, index === 0 ? 30 : 70],
+    setNewColor((prevNewColor) => [...prevNewColor, null]);
+
+    setColor((prevColor) => ({
+      ...prevColor,
+      [`newColor${newIndex}`]: addedNewColor,
     }));
-    console.log(colorPosition);
+
+    setPosition((prevPosition) => ({
+      ...prevPosition,
+      [`newPosition${newIndex}`]: addedNewPosition,
+    }));
+    console.log(newColor);
+    console.log(color);
   };
 
   const handleDelete = (index) => {

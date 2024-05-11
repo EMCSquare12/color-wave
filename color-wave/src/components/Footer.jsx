@@ -7,7 +7,7 @@ import { useState } from "react";
 const Footer = () => {
   const [date, setDate] = useState(new Date().getFullYear());
   return (
-    <footer className="w-full h-[10vh] bg-gray-100 border-t gap-2 flex flex-row md:p-12 p-4 justify-between items-center ">
+    <footer className="w-full h-[20vh] bg-gray-100 border-t gap-2 flex flex-row lg:px-12 md:px-40 px-4 justify-between items-center ">
       <h1 className="flex flex-row items-center gap-2 text-xs text-gray-500 md:text-sm w-fit font-poppins">
         <FaRegCopyright />
         Color Wave by{" "}

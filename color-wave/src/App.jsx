@@ -32,7 +32,7 @@ function App() {
       )}
       <Hero />
       <div
-        className={`relative flex flex-col w-full md:full h-auto gap-4 p-4  md:p-12 md:grid md:grid-cols-2 md:gap-10`}
+        className={`relative flex flex-col w-full md:full h-auto gap-4 py-4 px-4 md:px-40 md:py-12 lg:py-12 lg:px-12 md:grid md:grid-cols-2 md:gap-10`}
       >
         <Display
           gradient={bgGradient}
