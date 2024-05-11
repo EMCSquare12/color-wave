@@ -16,6 +16,7 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
   const [type, setType] = useState("");
   const [rotation, setRotation] = useState("");
   const [gradient, setGradient] = useState("");
+  const [mapItem, setMapItem] = useState([]);
   const [colorPosition, setColorPosition] = useState({
     color: [randomColor(), randomColor()],
     position: [0, 100],
@@ -37,27 +38,18 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
 
     setGradient(bgGradient);
     callbackGradient(bgGradient);
-    callbackFirstColor(color.firstColor);
-  }, [color, position, type, rotation]);
+    callbackFirstColor(colorPosition.color[0]);
+  }, [colorPosition, type, rotation]);
 
-  const handleNewColor = () => {
-    const addedNewColor = randomColor();
-    const addedNewPosition = newColor.length === 0 ? 30 : 70;
-    const newIndex = newColor.length;
+  const handleNewColorPosition = () => {
+    const index = mapItem.length;
+    setMapItem([...mapItem, null]);
 
-    setNewColor((prevNewColor) => [...prevNewColor, null]);
-
-    setColor((prevColor) => ({
-      ...prevColor,
-      [`newColor${newIndex}`]: addedNewColor,
+    setColorPosition((prevValue) => ({
+      ...prevValue,
+      color: [...prevValue.color, randomColor()],
+      position: [...prevValue.position, index === 0 ? 30 : 70],
     }));
-
-    setPosition((prevPosition) => ({
-      ...prevPosition,
-      [`newPosition${newIndex}`]: addedNewPosition,
-    }));
-    console.log(newColor);
-    console.log(color);
   };
 
   const handleDelete = (index) => {
@@ -106,7 +98,7 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
       fontFamily: "Poppins, sans-serif",
       paddingLeft: "32px",
       justifyContent: "center",
-      color: "#2563eb",
+      color: "#51CFF9",
       fontSize: "32px",
       fontWeight: "bold",
     };
@@ -134,7 +126,7 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
   };
 
   return (
-    <div className="flex flex-col w-full h-full gap-4 p-4 border border-gray-300 rounded-md shadow md:w-full md:gap-8 md:p-8">
+    <div className="flex flex-col w-full h-full gap-4 p-4 border border-gray-200 rounded-md shadow md:w-full md:gap-8 md:p-8">
       <TypeRotation
         callBackType={(value) => setType(value)}
         callbackRotation={(value) => setRotation(value)}
@@ -168,6 +160,7 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
               callbackPosition={(value) =>
                 handleColorPosition(value, 0, "position")
               }
+              index={0}
             />
             <div className="w-[10%] h-auto flex items-center justify-center p-2">
               <LuCircleSlash2 className="text-sm text-gray-500 cursor-not-allowed md:text-base" />
@@ -181,6 +174,7 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
               callbackPosition={(value) =>
                 handleColorPosition(value, 1, "position")
               }
+              index={1}
             />
             <div className="w-[10%] h-auto flex items-center justify-center p-2">
               <LuCircleSlash2 className="text-sm text-gray-500 cursor-not-allowed md:text-base" />
@@ -192,11 +186,12 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
                 color={colorPosition.color[index + 2]}
                 position={colorPosition.position[[index + 2]]}
                 callbackColor={(value) =>
-                  handleColorPosition(value, index, "color")
+                  handleColorPosition(value, index + 2, "color")
                 }
                 callbackPosition={(value) =>
-                  handleCallbackPosition(value, index, "position")
+                  handleColorPosition(value, index + 2, "position")
                 }
+                index={index + 2}
               />
 
               <div className="w-[10%] h-auto flex items-center justify-center p-2">

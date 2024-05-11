@@ -97,14 +97,11 @@ const TypeRotation = ({ callBackType, callbackRotation, type, rotation }) => {
   }, [toggleList]);
 
   return (
-    <div
-      ref={dropdownRef}
-      className="flex flex-row w-full h-auto gap-4 md:gap-8"
-    >
+    <div ref={dropdownRef} className="flex flex-row w-full h-auto gap-4">
       <div className="flex flex-row w-[50%] h-fit">
         <button
           onClick={() => handleType("linear")}
-          className={`w-[50%] md:h-12 border-gray-300 outline-none h-10 flex items-center justify-center gap-2 rounded-l border border-r-transparent font-semibold hover:shadow font-poppins text-sm md:text-base ${
+          className={`w-[50%] md:h-12 border-gray-200 outline-none h-10 flex items-center justify-center gap-2 rounded-l border border-r-transparent font-semibold hover:shadow font-poppins text-sm md:text-base ${
             type === "linear"
               ? "bg-blue-600 text-white border-blue-600 hover:bg-blue-700"
               : "text-gray-500 hover:bg-gray-100 "
@@ -115,7 +112,7 @@ const TypeRotation = ({ callBackType, callbackRotation, type, rotation }) => {
         </button>
         <button
           onClick={() => handleType("radial")}
-          className={`w-[50%] border-gray-300 md:h-12 outline-none h-10 rounded-r justify-center gap-2 flex items-center border font-semibold  hover:shadow font-poppins text-sm md:text-base ${
+          className={`w-[50%] border-gray-200 md:h-12 outline-none h-10 rounded-r justify-center gap-2 flex items-center border font-semibold  hover:shadow font-poppins text-sm md:text-base ${
             type === "radial"
               ? "bg-blue-600 text-white border-blue-600 hover:bg-blue-700"
               : "text-gray-500 hover:bg-gray-100  "
@@ -139,10 +136,10 @@ const TypeRotation = ({ callBackType, callbackRotation, type, rotation }) => {
           }}
           value={rotation}
           type="text"
-          className="z-20 w-full h-10 px-6 text-sm text-gray-500 border border-gray-300 rounded outline-none md:px-8 md:h-12 focus:ring-2 hover:shadow font-poppins md:text-base"
+          className="z-20 w-full h-10 px-6 text-sm text-gray-500 border border-gray-200 rounded outline-none md:px-8 md:h-12 focus:ring-2 hover:shadow font-poppins md:text-base"
         />
         {toggleList && (
-          <ul className=" gap-2 flex border-gray-300 z-10 flex-col overflow-y-scroll max-h-[300px] absolute top-0 w-full h-auto p-4 mt-10 bg-white border rounded shadow md:mt-12">
+          <ul className=" gap-2 flex border-gray-200 z-10 flex-col overflow-y-scroll max-h-[300px] absolute top-0 w-full h-auto p-4 mt-10 bg-white border rounded shadow md:mt-12">
             {rotationList.map((item, index) => (
               <li
                 onDoubleClick={() => setToggleList(false)}
