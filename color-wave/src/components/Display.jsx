@@ -64,7 +64,6 @@ const Display = ({ gradient, bgColor, isOpen }) => {
   useEffect(() => {
     const handleResize = () => {
       setWidth(window.innerWidth);
-      setIsCodeOpen(width < 768);
     };
     window.addEventListener("resize", handleResize);
     return () => {
@@ -135,7 +134,7 @@ const Display = ({ gradient, bgColor, isOpen }) => {
           {width < 768 && (
             <button
               onClick={() => setIsCodeOpen(false)}
-              className="absolute top-0 right-0 mt-4 mr-4 text-lg text-red-600"
+              className="absolute top-0 right-0 mt-4 mr-4 text-lg text-red-500 hover:text-red-600"
             >
               <IoCloseSharp />
             </button>

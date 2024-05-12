@@ -147,7 +147,7 @@ const TypeRotation = ({ callBackType, callbackRotation, type, rotation }) => {
                 onClick={() => {
                   callbackRotation(item), setSelectedIndex(index);
                 }}
-                className={`flex items-center h-10 p-2 text-sm rounded md:h-12 hover:text-white  md:p-4 font-font-poppins md:text-base ${
+                className={`flex items-center  transition duration-200 ease-in-out h-10 p-2 text-sm rounded md:h-12 hover:text-white  md:p-4 font-font-poppins md:text-base ${
                   rotation === item
                     ? "bg-blue-600 text-white"
                     : "hover:bg-blue-300 bg-white text-gray-500"

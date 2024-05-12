@@ -82,7 +82,7 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
   };
 
   const downloadAsJPEG = () => {
-    const element = {
+    const mainElement = {
       width: "1440px",
       height: "1104px",
       zIndex: "100",
@@ -104,7 +104,7 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
     };
 
     const div = document.createElement("div");
-    Object.assign(div.style, element);
+    Object.assign(div.style, mainElement);
 
     const footerDiv = document.createElement("div");
     Object.assign(footerDiv.style, footer);
@@ -126,7 +126,7 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
   };
 
   return (
-    <div className="flex flex-col w-full h-full gap-4 p-4 border border-gray-200 rounded-md shadow md:w-full md:gap-8 md:p-8">
+    <div className="flex flex-col w-full h-full gap-4 p-4 border border-gray-200 rounded-md shadow md:w-full md:gap-8 md:p-8 bg-gray-50">
       <TypeRotation
         callBackType={(value) => setType(value)}
         callbackRotation={(value) => setRotation(value)}

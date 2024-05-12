@@ -4,8 +4,14 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        "poppins": ["poppins", "sans-serif"],
-        "mont": ["Montserrat", "sans-serif"],
+        poppins: ["poppins", "sans-serif"],
+        mont: ["Montserrat", "sans-serif"],
+      },
+      colors: {
+        "blue-logo": "#51CFF9",
+      },
+      boxShadow: {
+        button: "2px 4px 4px rgba(0, 0, 0, 0.25)",
       },
     },
   },

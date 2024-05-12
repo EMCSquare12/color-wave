@@ -13,7 +13,7 @@ const GradientModal = ({ gradientModal, isOpen }) => {
   return (
     <div
       style={{ background: gradientModal }}
-      className="fixed z-30 w-screen h-screen"
+      className="fixed z-50 w-screen h-screen "
     >
       <button
         onClick={() => isOpen(false)}
