@@ -35,7 +35,7 @@ function App() {
       <Header />
       <Hero />
       <div
-        className={`relative flex flex-col w-full md:full h-auto gap-4 my-12 md:px-20 px-4 md:grid md:grid-cols-2 md:gap-10`}
+        className={`relative flex flex-col w-full md:full h-auto gap-4 my-20 md:px-20 px-4 md:grid md:grid-cols-2 md:gap-10`}
       >
         <Display
           gradient={bgGradient}

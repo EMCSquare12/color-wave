@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 
 const Header = () => {
   const [width, setWidth] = useState(window.innerWidth);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
     const handleResize = () => {
@@ -22,8 +22,8 @@ const Header = () => {
 
   return (
     <>
-      <header className="flex flex-col md:flex-row w-full px-0 md:px-20 md:h-[15vh] right-0 md:w-full items-center md:justify-between md:bg-transparent relative  z-30 ">
-        <div className="flex flex-row items-center justify-between w-full px-8 md:w-fit h-fit md:px-0">
+      <header className="flex flex-col md:flex-row w-full px-0 md:px-20 md:h-[20vh] h-[15vh] right-0 md:w-full items-center md:justify-between md:bg-transparent relative  z-30 ">
+        <div className="flex flex-row items-center justify-between w-full h-full px-8 md:w-fit md:px-0">
           <div
             className={`flex flex-row items-center w-fit gap-4 py-4 md:p-0 `}
           >
@@ -39,7 +39,7 @@ const Header = () => {
           {width < 768 && (
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`p-3 text-sm font-bold rounded-[50%] shadow-xl  h-fit font-poppins text-gray-50  ${
+              className={`p-3 text-sm font-bold rounded-[50%] shadow-xl font-poppins text-gray-50  ${
                 !isOpen
                   ? "bg-blue-300 hover:bg-blue-400"
                   : "bg-red-400 hover:bg-red-500"
@@ -50,8 +50,8 @@ const Header = () => {
           )}
         </div>
 
-        {isOpen && (
-          <nav className="absolute right-0 z-30 flex flex-col md:top-0 top-[9vh] items-end justify-center gap-4 md:mr-0 mr-8 py-4 md:py-0  md:relative  md:bg-transparent md:items-center md:gap-8 md:flex-row">
+        {isOpen === true && (
+          <nav className="absolute right-0 z-30 flex flex-col md:top-0 top-[15vh] items-end justify-center gap-4 md:mr-0 mr-8  md:relative  md:bg-transparent md:items-center md:gap-8 md:flex-row">
             <li className="flex items-center px-4 py-2 text-sm font-semibold w-fit transition duration-200 ease-in-out md:hover:bg-transparent md:hover:text-blue-300 text-gray-50 hover:bg-blue-400 font-poppins md:text-base bg-blue-300 md:bg-transparent  md:p-0 md:rounded-none rounded-[50px] md:shadow-none  shadow-xl ">
               <a href="#">Gradient</a>
             </li>
