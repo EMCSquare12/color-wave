@@ -8,7 +8,7 @@ export default {
         mont: ["Montserrat", "sans-serif"],
       },
       colors: {
-        "blue-logo": "#51CFF9",
+        "blue-text": "#51CFF9",
       },
       boxShadow: {
         button: "2px 4px 4px rgba(0, 0, 0, 0.25)",

@@ -1,6 +1,9 @@
 const About = () => {
   return (
-    <div className="flex flex-col p-8 mx-4 md:mx-20 my-12 border rounded shadow bg-white w-auto md:w-[70vw] gap-8">
+    <div
+      id="about"
+      className="flex flex-col p-8 mx-4 md:mx-20 my-12 border rounded shadow bg-white w-auto md:w-[70vw] gap-8"
+    >
       <div className="flex flex-col gap-4">
         <h1 className="text-lg font-bold text-gray-700 md:text-2xl font-poppins">
           What is Color Wave?
@@ -31,8 +34,8 @@ const About = () => {
             </span>{" "}
             With Color Wave, users have complete control over their gradients.
             Choose from a wide range of color options, including HEX codes, RGB
-            values, and a color picker tool, to create the perfect gradient for
-            your project.
+            values, and a color picker tool, positioning input, type and
+            rotation selection, to create the perfect gradient for your project.
           </p>
           {/* <p className="text-base text-gray-600 md:text-lg font-nromal font-poppins">
             <span className="w-full mr-2 font-semibold text-gray-700">
@@ -47,7 +50,7 @@ const About = () => {
               Real-Time Preview:
             </span>{" "}
             See your gradient come to life in real-time as you make adjustments.
-            With Color Wave's real-time preview feature, you can fine-tune your
+            With Color Wave's real-time preview feature. you can fine-tune your
             gradient until it's just right.
           </p>
           <p className="text-base text-gray-600 md:text-lg font-nromal font-poppins">
