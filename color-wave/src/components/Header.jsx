@@ -51,7 +51,7 @@ const Header = () => {
 
         {isOpen === true && (
           <nav className="absolute right-0 z-30 flex flex-col md:top-0 top-[10vh] items-end justify-center gap-4 md:mr-0 mr-8  md:relative  md:bg-transparent md:items-center md:gap-8 md:flex-row">
-            <li className="flex items-center px-4 py-2 text-sm font-semibold w-fit transition duration-200 ease-in-out md:hover:bg-transparent md:hover:text-blue-300 md:text-blue-text  hover:bg-blue-400 font-poppins md:text-base bg-blue-text md:bg-transparent  md:p-0 md:rounded-none rounded-[50px] md:shadow-none  shadow-xl ">
+            <li className="flex items-center px-4 py-2 text-sm font-semibold w-fit transition duration-200 ease-in-out md:hover:bg-transparent text-gray-50 md:hover:text-blue-300 md:text-blue-text  hover:bg-blue-400 font-poppins md:text-base bg-blue-text md:bg-transparent  md:p-0 md:rounded-none rounded-[50px] md:shadow-none  shadow-xl ">
               <Link
                 to="gradient"
                 smooth={true}
@@ -61,7 +61,7 @@ const Header = () => {
                 Gradient
               </Link>
             </li>
-            <li className="flex items-center px-4 py-2 text-sm font-semibold w-fit transition duration-200 ease-in-out md:hover:bg-transparent md:hover:text-blue-300 md:text-blue-text  hover:bg-blue-400 font-poppins md:text-base bg-blue-text md:bg-transparent  md:p-0 md:rounded-none rounded-[50px] md:shadow-none shadow-xl ">
+            <li className="flex items-center px-4 py-2 text-sm font-semibold w-fit transition duration-200 ease-in-out md:hover:bg-transparent text-gray-50 md:hover:text-blue-300 md:text-blue-text  hover:bg-blue-400 font-poppins md:text-base bg-blue-text md:bg-transparent  md:p-0 md:rounded-none rounded-[50px] md:shadow-none shadow-xl ">
               <Link
                 to="about"
                 smooth={true}
@@ -71,7 +71,7 @@ const Header = () => {
                 About
               </Link>
             </li>
-            <li className="flex items-center px-4 py-2 text-sm font-semibold w-fit transition duration-200 ease-in-out md:hover:bg-transparent md:hover:text-blue-300 md:text-blue-text  hover:bg-blue-400 font-poppins bg-blue-text md:bg-transparent  md:text-base md:p-0 md:rounded-none rounded-[50px] md:shadow-none  shadow-xl ">
+            <li className="flex items-center px-4 py-2 text-sm font-semibold w-fit transition duration-200 ease-in-out md:hover:bg-transparent text-gray-50 md:hover:text-blue-300 md:text-blue-text  hover:bg-blue-400 font-poppins bg-blue-text md:bg-transparent  md:text-base md:p-0 md:rounded-none rounded-[50px] md:shadow-none  shadow-xl ">
               <Link
                 to="contact"
                 smooth={true}
@@ -81,7 +81,7 @@ const Header = () => {
                 Contact
               </Link>
             </li>
-            <li className="flex items-center px-4 py-2 text-base font-semibold w-fit transition duration-200 ease-in-out md:hover:bg-transparent md:hover:text-blue-300 md:text-blue-text  hover:bg-blue-400 font-poppins bg-blue-text md:bg-transparent  md:text-lg md:p-0 md:rounded-none rounded-[50px] md:shadow-none  shadow-xl ">
+            <li className="flex items-center px-4 py-2 text-base font-semibold w-fit transition duration-200 ease-in-out md:hover:bg-transparent text-gray-50 md:hover:text-blue-300 md:text-blue-text  hover:bg-blue-400 font-poppins bg-blue-text md:bg-transparent  md:text-lg md:p-0 md:rounded-none rounded-[50px] md:shadow-none  shadow-xl ">
               <a
                 href="https://github.com/EMCSquare12/color-wave"
                 target="_blank"
