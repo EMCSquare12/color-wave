@@ -106,10 +106,10 @@ const SelectionPallet = ({ callbackGradient, callbackFirstColor }) => {
     const div = document.createElement("div");
     Object.assign(div.style, mainElement);
 
-    const footerDiv = document.createElement("div");
-    Object.assign(footerDiv.style, footer);
-    footerDiv.textContent = "Color Wave";
-    div.appendChild(footerDiv);
+    // const footerDiv = document.createElement("div");
+    // Object.assign(footerDiv.style, footer);
+    // footerDiv.textContent = "Color Wave";
+    // div.appendChild(footerDiv);
 
     document.body.appendChild(div);
 
