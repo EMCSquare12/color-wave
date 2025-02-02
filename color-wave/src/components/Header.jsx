@@ -3,6 +3,7 @@ import Logo from "../assets/icon.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoCloseSharp } from "react-icons/io5";
 import { useState, useEffect } from "react";
+import { Link } from "react-scroll";
 
 const Header = () => {
   const [width, setWidth] = useState(window.innerWidth);
@@ -51,16 +52,41 @@ const Header = () => {
         {isOpen === true && (
           <nav className="absolute right-0 z-30 flex flex-col md:top-0 top-[10vh] items-end justify-center gap-4 md:mr-0 mr-8  md:relative  md:bg-transparent md:items-center md:gap-8 md:flex-row">
             <li className="flex items-center px-4 py-2 text-sm font-semibold w-fit transition duration-200 ease-in-out md:hover:bg-transparent md:hover:text-blue-300 md:text-blue-text  hover:bg-blue-400 font-poppins md:text-base bg-blue-text md:bg-transparent  md:p-0 md:rounded-none rounded-[50px] md:shadow-none  shadow-xl ">
-              <a href="#">Gradient</a>
+              <Link
+                to="gradient"
+                smooth={true}
+                duration={500}
+                className="cursor-pointer"
+              >
+                Gradient
+              </Link>
             </li>
             <li className="flex items-center px-4 py-2 text-sm font-semibold w-fit transition duration-200 ease-in-out md:hover:bg-transparent md:hover:text-blue-300 md:text-blue-text  hover:bg-blue-400 font-poppins md:text-base bg-blue-text md:bg-transparent  md:p-0 md:rounded-none rounded-[50px] md:shadow-none shadow-xl ">
-              <a href="#">About</a>
+              <Link
+                to="about"
+                smooth={true}
+                duration={500}
+                className="cursor-pointer"
+              >
+                About
+              </Link>
             </li>
             <li className="flex items-center px-4 py-2 text-sm font-semibold w-fit transition duration-200 ease-in-out md:hover:bg-transparent md:hover:text-blue-300 md:text-blue-text  hover:bg-blue-400 font-poppins bg-blue-text md:bg-transparent  md:text-base md:p-0 md:rounded-none rounded-[50px] md:shadow-none  shadow-xl ">
-              <a href="#">Contact</a>
+              <Link
+                to="contact"
+                smooth={true}
+                duration={500}
+                className="cursor-pointer"
+              >
+                Contact
+              </Link>
             </li>
             <li className="flex items-center px-4 py-2 text-base font-semibold w-fit transition duration-200 ease-in-out md:hover:bg-transparent md:hover:text-blue-300 md:text-blue-text  hover:bg-blue-400 font-poppins bg-blue-text md:bg-transparent  md:text-lg md:p-0 md:rounded-none rounded-[50px] md:shadow-none  shadow-xl ">
-              <a href="#">
+              <a
+                href="https://github.com/EMCSquare12/color-wave"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <FaGithub />
               </a>
             </li>
